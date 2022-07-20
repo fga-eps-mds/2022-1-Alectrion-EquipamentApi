@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node-dev --respawn --transpile-only src/main.ts",
+    "typeorm": "ts-node-dev node_modules/.bin/typeorm",
+    "migration:run": "npm run typeorm -- migration:run -d src/db/config.ts",
+    "migration:revert": "npm run typeorm -- migration:revert -d src/db/config.ts",
+    "dev": "ts-node-dev --respawn --transpile-only src/main.ts",
     "test": "jest --passWithNoTests --no-cache --runInBand",
     "test:watch": "npm t -- --watch",
     "test:staged": "npm t -- --findRelatedTests",
@@ -47,6 +50,9 @@
     "typescript": "^4.7.4"
   },
   "dependencies": {
-    "express": "^4.18.1"
+    "express": "^4.18.1",
+    "pg": "^8.7.3",
+    "reflect-metadata": "^0.1.13",
+    "typeorm": "^0.3.7"
   }
 }

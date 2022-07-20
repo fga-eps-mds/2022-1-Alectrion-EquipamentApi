@@ -1,3 +1,4 @@
+import 'reflect-metadata'
 import express, { json } from 'express'
 const port = 4002
 
