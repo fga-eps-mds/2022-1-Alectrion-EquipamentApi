@@ -1,6 +1,6 @@
 import 'reflect-metadata'
 import express, { json } from 'express'
-const port = 4002
+const port = process.env.PORT || 4002
 
 const app = express()
 
