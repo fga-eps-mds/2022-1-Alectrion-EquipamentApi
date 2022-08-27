@@ -1,8 +1,10 @@
+/* eslint-disable no-use-before-define */
 import {
   Column,
   CreateDateColumn,
   Entity,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn
 } from 'typeorm'
@@ -27,6 +29,12 @@ export class SubUnit {
   @UpdateDateColumn()
   updatedAt: Date
 
-  @ManyToOne(() => Unit, (unit) => unit.subunit)
+  @ManyToOne(() => SubUnit, (subUnit) => subUnit.children)
+  parent: SubUnit
+
+  @OneToMany(() => SubUnit, (subUnit) => subUnit.parent)
+  children: SubUnit[]
+
+  @ManyToOne(() => Unit, (unit) => unit.subUnit)
   unit: Unit
 }

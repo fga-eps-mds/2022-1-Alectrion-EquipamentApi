@@ -28,5 +28,5 @@ export class Unit {
   updatedAt: Date
 
   @OneToMany(() => SubUnit, (SubUnit) => SubUnit.unit)
-  subunit: SubUnit[]
+  subUnit: SubUnit[]
 }
