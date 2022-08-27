@@ -2,14 +2,14 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  OneToMany,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn
 } from 'typeorm'
-import { SubUnit } from './subUnit'
+import { Unit } from './unit'
 
 @Entity()
-export class Unit {
+export class SubUnit {
   @PrimaryGeneratedColumn('uuid')
   id: string
 
@@ -27,6 +27,6 @@ export class Unit {
   @UpdateDateColumn()
   updatedAt: Date
 
-  @OneToMany(() => SubUnit, (SubUnit) => SubUnit.unit)
-  subunit: SubUnit[]
+  @ManyToOne(() => Unit, (unit) => unit.subunit)
+  unit: Unit
 }
