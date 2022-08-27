@@ -3,10 +3,7 @@ import { DataSource } from 'typeorm'
 
 export const dataSource = new DataSource({
   type: 'postgres',
-  host: process.env.DB_HOST,
-  username: process.env.DB_USER,
-  database: process.env.DB_DATABASE,
-  password: process.env.DB_PASS,
+  url: process.env.DB_URL,
   synchronize: true,
   port: Number(process.env.DB_PORT),
   migrationsRun: true,
