@@ -5,7 +5,6 @@ export const dataSource = new DataSource({
   type: 'postgres',
   url: process.env.DB_URL,
   synchronize: true,
-  port: Number(process.env.DB_PORT),
   migrationsRun: true,
   entities: [__dirname + '/entities/*{.ts, .js}'],
   migrations: [__dirname + '/migrations/*{.ts, .js}']

@@ -1,40 +1,12 @@
-/* eslint-disable no-unused-vars */
-export enum Status {
-  ACTIVE = 'active',
-  ACTIVE_BY_DEMISE = 'activeByDemise',
-  INACTIVE = 'inactive',
-  MAINTENANCE = 'maintenance',
-  DOWNGRADED = 'downgraded',
-  TECHNICAL_RESERVE = 'technicalReserve'
-}
-
-export enum Type {
-  CPU = 'cpu',
-  NOBREAK = 'nobreak',
-  SCANNER = 'scanner',
-  WEBCAM = 'webcam',
-  MONITOR = 'monitor',
-  STABILIZER = 'stabilizer'
-}
-
-export enum ScreenType {
-  LCD = 'lcd',
-  OLED = 'oled',
-  LED = 'led',
-  TN = 'twistedNematic',
-  VA = 'verticalAlignment',
-  IPS = 'in-PlaneSwitching'
-}
-
-export enum StorageType {
-  HD = 'hardDisk',
-  SSD = 'solidStateDrive'
-}
+import { ScreenType } from './equipamentEnum/screenType'
+import { Status } from './equipamentEnum/status'
+import { StorageType } from './equipamentEnum/storageType'
+import { Type } from './equipamentEnum/type'
 
 export type Equipament = {
   id: string
 
-  tipping_number: string
+  tippingNumber: string
 
   acquision: string
 
@@ -44,27 +16,27 @@ export type Equipament = {
 
   model: string
 
-  unit_id: string
+  unitId: string
 
   description?: string
 
   brand: string
 
-  initial_use_date: string
+  initialUseDate: string
 
-  screen_size?: string
+  screenSize?: string
 
-  invoice_number?: string
+  invoiceNumber?: string
 
   power?: string
 
-  screen_type?: ScreenType
+  screenType?: ScreenType
 
   processador?: string
 
-  storage_type?: StorageType
+  storageType?: StorageType
 
-  storage_amount?: string
+  storageAmount?: string
 
   createdAt: Date
 

@@ -7,10 +7,10 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn
 } from 'typeorm'
-import { ScreenType } from './equipamentEnum/screenType'
-import { Status } from './equipamentEnum/status'
-import { StorageType } from './equipamentEnum/storageType'
-import { Type } from './equipamentEnum/type'
+import { ScreenType } from '../../domain/entities/equipamentEnum/screenType'
+import { Status } from '../../domain/entities/equipamentEnum/status'
+import { StorageType } from '../../domain/entities/equipamentEnum/storageType'
+import { Type } from '../../domain/entities/equipamentEnum/type'
 import { Unit } from './unit'
 
 @Entity()
@@ -18,8 +18,11 @@ export class Equipment {
   @PrimaryGeneratedColumn('uuid')
   id: string
 
-  @Column()
-  tipping_number: string
+  @Column({
+    name: 'tipping_number',
+    type: 'varchar'
+  })
+  tippingNumber: string
 
   @Column()
   acquision: string
@@ -32,51 +35,78 @@ export class Equipment {
 
   @Column({
     type: 'enum',
-    enum: Type
+    enum: Status
   })
   status: Status
 
-  @Column()
+  @Column({
+    type: 'varchar'
+  })
   model: string
 
-  @Column()
-  unit_id: string
-
-  @Column()
+  @Column({
+    type: 'varchar'
+  })
   description: string
 
-  @Column()
+  @Column({
+    type: 'varchar'
+  })
   brand: string
 
-  @Column()
-  initial_use_date: string
+  @Column({
+    name: 'initial_use_date',
+    type: 'date'
+  })
+  initialUseDate: Date
 
-  @Column()
-  screen_size: string
+  @Column({
+    type: 'varchar',
+    name: 'screen_size',
+    nullable: true
+  })
+  screenSize: string
 
-  @Column()
-  invoice_number: string
+  @Column({
+    name: 'invoice_number',
+    type: 'varchar'
+  })
+  invoiceNumber: string
 
-  @Column()
-  power?: string
+  @Column({
+    type: 'varchar',
+    nullable: true
+  })
+  power: string
 
   @Column({
     type: 'enum',
-    enum: ScreenType
+    enum: ScreenType,
+    name: 'screen_type',
+    nullable: true
   })
   screenType: ScreenType
 
-  @Column()
-  processador: string
+  @Column({
+    type: 'varchar',
+    nullable: true
+  })
+  processor: string
 
   @Column({
     type: 'enum',
-    enum: StorageType
+    enum: StorageType,
+    name: 'storage_type',
+    nullable: true
   })
-  storage_type: StorageType
+  storageType: StorageType
 
-  @Column()
-  storage_amount?: string
+  @Column({
+    name: 'storage_amount',
+    type: 'varchar',
+    nullable: true
+  })
+  storageAmount: string
 
   @Column({ type: 'timestamptz' })
   @CreateDateColumn()
