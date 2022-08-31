@@ -1,0 +1,9 @@
+/* eslint-disable no-unused-vars */
+export enum Status {
+  ACTIVE = 'ACTIVE',
+  ACTIVE_BY_DEMISE = 'ACTIVE_BY_DEMISE',
+  INACTIVE = 'INACTIVE',
+  MAINTENANCE = 'MAINTENANCE',
+  DOWNGRADED = 'DOWNGRADED',
+  TECHNICAL_RESERVE = 'TECHNICAL_RESERVE'
+}
