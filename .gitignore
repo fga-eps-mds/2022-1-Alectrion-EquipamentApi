@@ -1,5 +1,8 @@
 /node_modules
 /coverage
+/report
+/data
+yarn.lock
 .env
 db.env
 data

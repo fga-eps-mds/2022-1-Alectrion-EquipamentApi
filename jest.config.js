@@ -11,5 +11,15 @@ module.exports = {
   transform: {
     '\\.ts$': 'ts-jest'
   },
-  clearMocks: true
+  clearMocks: true,
+  reporters: [
+    'default',
+    [
+      'jest-sonar',
+      {
+        outputDirectory: 'report',
+        outputName: 'sonar-report.xml'
+      }
+    ]
+  ]
 }
