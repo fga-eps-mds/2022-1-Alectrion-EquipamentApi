@@ -17,10 +17,9 @@ const port = process.env.PORT || 4002
 const app = express()
 app.use(cors())
 app.use(json())
-app.use('/equipment', routes)
-
 app.get('/', function (req, res) {
   res.json({ message: 'Alectrion Equipament' }).status(200)
 })
+app.use('/equipment', routes)
 
 app.listen(port, () => console.log(`rodando ${port}`))
