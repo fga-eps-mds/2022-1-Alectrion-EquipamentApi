@@ -1,3 +1,6 @@
+import { History } from './history'
+import { Equipment } from './equipment'
+
 export type OrderService = {
   id: string
 
@@ -11,9 +14,17 @@ export type OrderService = {
 
   equipmentSnapshot: any
 
+  equipament: Equipment
+
+  history: History
+
   sender: string
 
   senderFunctionalNumber: string
 
   authorFunctionalNumber: string
+
+  createdAt: Date
+
+  updatedAt: Date
 }

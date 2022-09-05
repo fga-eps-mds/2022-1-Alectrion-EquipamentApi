@@ -14,7 +14,7 @@ import { History } from './history'
 import { Unit } from './unit'
 
 @Entity()
-export class OrderService {
+export class Dismissed {
   @PrimaryGeneratedColumn('uuid')
   id: string
 
@@ -37,22 +37,10 @@ export class OrderService {
   authorId: string
 
   @Column({
-    type: 'varchar',
-    name: 'sender'
-  })
-  sender: string
-
-  @Column({
     type: 'jsonb',
     name: 'equipment_snapshot'
   })
   equipmentSnapshot: any
-
-  @Column({
-    type: 'varchar',
-    name: 'sender_functional_number'
-  })
-  senderFunctionalNumber: string
 
   @Column({ type: 'timestamptz' })
   @CreateDateColumn()
@@ -62,10 +50,10 @@ export class OrderService {
   @UpdateDateColumn()
   updatedAt: Date
 
-  @ManyToOne(() => Equipment, (equipment) => equipment.orderServices)
+  @ManyToOne(() => Equipment, (equipment) => equipment.dismisseds)
   equipment: Equipment
 
-  @ManyToOne(() => History, (history) => history.orderServices)
+  @ManyToOne(() => History, (history) => history.dismisseds)
   history: History
 
   @OneToOne(() => Unit)
