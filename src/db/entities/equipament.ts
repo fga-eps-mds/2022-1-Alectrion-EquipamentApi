@@ -32,6 +32,12 @@ export class Equipment {
   })
   tippingNumber: string
 
+  @Column({
+    name: 'serial_number',
+    type: 'varchar'
+  })
+  serialNumber: string
+
   @Column()
   acquision: string
 

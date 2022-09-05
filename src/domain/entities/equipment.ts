@@ -13,6 +13,8 @@ export type Equipment = {
 
   tippingNumber: string
 
+  serialNumber: string
+
   acquision: EquipmentAcquisition
 
   type: Type
