@@ -1,14 +1,21 @@
+import { EquipmentBrand } from './brand'
+import { Dismissed } from './dismissed'
 import { ScreenType } from './equipamentEnum/screenType'
 import { Status } from './equipamentEnum/status'
 import { StorageType } from './equipamentEnum/storageType'
 import { Type } from './equipamentEnum/type'
+import { EquipmentAcquisition } from './equipment-acquisition'
+import { OrderService } from './order-service'
+import { Unit } from './unit'
 
-export type Equipament = {
+export type Equipment = {
   id: string
 
   tippingNumber: string
 
-  acquision: string
+  serialNumber: string
+
+  acquision: EquipmentAcquisition
 
   type: Type
 
@@ -16,11 +23,11 @@ export type Equipament = {
 
   model: string
 
-  unitId: string
+  unit?: Unit
 
   description?: string
 
-  brand: string
+  brand?: EquipmentBrand
 
   initialUseDate: string
 
@@ -37,6 +44,10 @@ export type Equipament = {
   storageType?: StorageType
 
   storageAmount?: string
+
+  orderService?: OrderService[]
+
+  dismisseds?: Dismissed[]
 
   createdAt: Date
 
