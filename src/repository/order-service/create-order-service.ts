@@ -13,6 +13,7 @@ export type CreateOrderServiceData = {
   destination: Unit
   senderName: string
   senderFunctionalNumber: string
+  date: Date
 }
 
 export interface CreateOrderServiceRepository {

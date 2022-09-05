@@ -33,6 +33,13 @@ export class InvalidSenderError extends Error {
   }
 }
 
+export class InvalidDateError extends Error {
+  constructor() {
+    super('Invalid date error')
+    this.name = 'InvalidDateError'
+  }
+}
+
 export class CreateOrderServiceError extends Error {
   constructor() {
     super('Create Order Service Error')

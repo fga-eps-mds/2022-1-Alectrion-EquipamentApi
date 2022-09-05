@@ -16,7 +16,7 @@ export class CreateOrderServiceTypeOrmRepository
   async create(data: CreateOrderServiceData) {
     const result = this.historyRepository.create({
       authorId: data.authorId,
-      date: new Date(),
+      date: data.date,
       history: data.history,
       description: data.description,
       sender: data.senderName,

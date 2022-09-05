@@ -2,6 +2,7 @@ import { CreateOrderServiceUseCase } from '../../useCases/create-order-service/c
 import {
   EquipmentNotFoundError,
   InvalidAuthorError,
+  InvalidDateError,
   InvalidSenderError,
   InvalidUnitError,
   UnitNotFoundError
@@ -16,6 +17,7 @@ type HttpRequest = {
   destination: string
   senderName: string
   senderFunctionalNumber: string
+  date: string
 }
 
 export class CreateOrderServiceController extends Controller {
@@ -30,7 +32,8 @@ export class CreateOrderServiceController extends Controller {
       authorFunctionalNumber: params.authorFunctionalNumber,
       destination: params.destination,
       senderName: params.senderName,
-      senderFunctionalNumber: params.senderFunctionalNumber
+      senderFunctionalNumber: params.senderFunctionalNumber,
+      date: params.date
     })
 
     if (
@@ -53,6 +56,10 @@ export class CreateOrderServiceController extends Controller {
     }
 
     if (!response.isSuccess && response.error instanceof UnitNotFoundError) {
+      return badRequest(response.error)
+    }
+
+    if (!response.isSuccess && response.error instanceof InvalidDateError) {
       return badRequest(response.error)
     }
 

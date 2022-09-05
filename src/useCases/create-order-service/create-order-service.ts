@@ -11,7 +11,8 @@ import {
   InvalidUnitError,
   InvalidSenderError,
   UnitNotFoundError,
-  CreateOrderServiceError
+  CreateOrderServiceError,
+  InvalidDateError
 } from './errors'
 
 type CreateOrderServiceUseCaseData = {
@@ -21,6 +22,7 @@ type CreateOrderServiceUseCaseData = {
   destination: string
   senderName: string
   senderFunctionalNumber: string
+  date: string
 }
 
 export class CreateOrderServiceUseCase
@@ -47,6 +49,13 @@ export class CreateOrderServiceUseCase
       return {
         isSuccess: false,
         error: new InvalidUnitError()
+      }
+    }
+
+    if (!data.date || !Date.parse(data.date)) {
+      return {
+        isSuccess: false,
+        error: new InvalidDateError()
       }
     }
 
@@ -94,7 +103,8 @@ export class CreateOrderServiceUseCase
         history: this.history,
         equipmentSnapshot: equipment,
         senderName: data.senderName,
-        senderFunctionalNumber: data.senderFunctionalNumber
+        senderFunctionalNumber: data.senderFunctionalNumber,
+        date: new Date(data.date)
       })
 
       return {
