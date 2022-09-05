@@ -4,7 +4,7 @@ import { ScreenType } from './equipamentEnum/screenType'
 import { Status } from './equipamentEnum/status'
 import { StorageType } from './equipamentEnum/storageType'
 import { Type } from './equipamentEnum/type'
-import { EquipmentAcquisition } from './equipment-acquisition'
+import { History } from './history'
 import { OrderService } from './order-service'
 import { Unit } from './unit'
 
@@ -15,7 +15,7 @@ export type Equipment = {
 
   serialNumber: string
 
-  acquision: EquipmentAcquisition
+  acquision: string
 
   type: Type
 
@@ -23,33 +23,37 @@ export type Equipment = {
 
   model: string
 
-  unit?: Unit
+  description: string
 
-  description?: string
-
-  brand?: EquipmentBrand
-
-  initialUseDate: string
+  initialUseDate: Date
 
   screenSize?: string
 
-  invoiceNumber?: string
+  invoiceNumber: string
 
   power?: string
 
   screenType?: ScreenType
 
-  processador?: string
+  processor?: string
 
   storageType?: StorageType
 
   storageAmount?: string
 
-  orderService?: OrderService[]
-
-  dismisseds?: Dismissed[]
-
   createdAt: Date
 
   updatedAt: Date
+
+  orderServices: OrderService[]
+
+  dismisseds: Dismissed[]
+
+  brand: EquipmentBrand
+
+  acquisition: EquipmentBrand
+
+  history?: History
+
+  unit: Unit
 }

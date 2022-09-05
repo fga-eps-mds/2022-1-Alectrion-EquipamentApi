@@ -4,6 +4,6 @@ export interface UseCaseReponse<T> {
   error?: Error
 }
 
-export interface UseCase<T> {
-  execute(data: any): Promise<UseCaseReponse<T>>
+export interface UseCase<R, T> {
+  execute(data: R): Promise<UseCaseReponse<T>>
 }

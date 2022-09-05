@@ -1,5 +1,6 @@
 import { History } from './history'
 import { Equipment } from './equipment'
+import { Unit } from './unit'
 
 export type OrderService = {
   id: string
@@ -8,23 +9,21 @@ export type OrderService = {
 
   description: string
 
-  author: string
-
-  destination: string
-
-  equipmentSnapshot: any
-
-  equipament: Equipment
-
-  history: History
+  authorId: string
 
   sender: string
 
-  senderFunctionalNumber: string
+  equipmentSnapshot: any
 
-  authorFunctionalNumber: string
+  senderFunctionalNumber: string
 
   createdAt: Date
 
   updatedAt: Date
+
+  equipment: Equipment
+
+  history: History
+
+  destination: Unit
 }

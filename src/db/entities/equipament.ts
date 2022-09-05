@@ -17,7 +17,6 @@ import { Type } from '../../domain/entities/equipamentEnum/type'
 import { Dismissed } from './dismissed'
 import { EquipmentAcquisition } from './equipment-acquisition'
 import { EquipmentBrand } from './equipment-brand'
-import { History } from './history'
 import { OrderService } from './order-service'
 import { Unit } from './unit'
 
@@ -139,10 +138,6 @@ export class Equipment {
     (equipmentAcquisition) => equipmentAcquisition.equipment
   )
   acquisition: EquipmentBrand
-
-  @OneToOne(() => History)
-  @JoinColumn()
-  history: History
 
   @OneToOne(() => Unit)
   @JoinColumn()

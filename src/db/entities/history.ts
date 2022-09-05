@@ -3,23 +3,20 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn
 } from 'typeorm'
 import { Dismissed } from './dismissed'
+import { Equipment } from './equipament'
 import { OrderService } from './order-service'
 
 @Entity()
 export class History {
   @PrimaryGeneratedColumn('uuid')
   id: string
-
-  @Column({
-    name: 'date',
-    type: 'date'
-  })
-  date: Date
 
   @Column({
     type: 'jsonb',
@@ -32,6 +29,10 @@ export class History {
 
   @OneToMany(() => Dismissed, (dismissed) => dismissed.equipment)
   dismisseds: Dismissed[]
+
+  @OneToOne(() => Equipment)
+  @JoinColumn()
+  equipment: Equipment
 
   @Column({ type: 'timestamptz' })
   @CreateDateColumn()

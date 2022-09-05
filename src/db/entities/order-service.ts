@@ -3,9 +3,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinColumn,
   ManyToOne,
-  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn
 } from 'typeorm'
@@ -68,7 +66,6 @@ export class OrderService {
   @ManyToOne(() => History, (history) => history.orderServices)
   history: History
 
-  @OneToOne(() => Unit)
-  @JoinColumn()
+  @ManyToOne(() => Unit, (unit) => unit.orderServices)
   destination: Unit
 }
