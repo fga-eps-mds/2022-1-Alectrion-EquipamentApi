@@ -1,13 +1,8 @@
 import { OrderService } from './../../entities/order-service'
-import {
-  CreateOrderServiceData,
-  CreateOrderServiceRepository
-} from './../../../repository/order-service/create-order-service'
+import { CreateOrderServiceData } from './../../../repository/order-service/create-order-service'
 import { dataSource } from '../../config'
 
-export class CreateOrderServiceTypeOrmRepository
-  implements CreateOrderServiceRepository
-{
+export class CreateOrderServiceTypeOrmRepository {
   private readonly historyRepository
   constructor() {
     this.historyRepository = dataSource.getRepository(OrderService)

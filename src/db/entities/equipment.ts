@@ -37,9 +37,6 @@ export class Equipment {
   })
   serialNumber: string
 
-  @Column()
-  acquision: string
-
   @Column({
     type: 'enum',
     enum: Type
@@ -115,6 +112,13 @@ export class Equipment {
     nullable: true
   })
   storageAmount: string
+
+  @Column({
+    name: 'ram_size',
+    type: 'varchar',
+    nullable: true
+  })
+  ram_size: string
 
   @Column({ type: 'timestamptz' })
   @CreateDateColumn()

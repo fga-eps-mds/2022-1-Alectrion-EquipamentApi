@@ -4,7 +4,6 @@ import { ScreenType } from './equipamentEnum/screenType'
 import { Status } from './equipamentEnum/status'
 import { StorageType } from './equipamentEnum/storageType'
 import { Type } from './equipamentEnum/type'
-import { History } from './history'
 import { OrderService } from './order-service'
 import { Unit } from './unit'
 
@@ -14,8 +13,6 @@ export type Equipment = {
   tippingNumber: string
 
   serialNumber: string
-
-  acquision: string
 
   type: Type
 
@@ -53,7 +50,7 @@ export type Equipment = {
 
   acquisition: EquipmentBrand
 
-  history?: History
+  ram_size?: string
 
   unit: Unit
 }
