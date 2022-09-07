@@ -73,7 +73,7 @@ export class NotFoundAcquisition extends Error {
   }
 }
 
-class CreateEquipmentUseCase
+export class CreateEquipmentUseCase
   implements UseCase<CreateEquipmentInterface, Equipment>
 {
   constructor(
@@ -164,4 +164,4 @@ class CreateEquipmentUseCase
   }
 }
 
-export { CreateEquipmentUseCase }
+
