@@ -77,11 +77,12 @@ class CreateEquipmentUseCase
     const equipment = new Equipment()
     equipment.tippingNumber = equipmentData.tippingNumber
     equipment.serialNumber = equipmentData.serialNumber
-    equipment.status = equipmentData.status as Status
+    equipment.status = 'ACTIVE' as Status 
     equipment.model = equipmentData.model
     equipment.description = equipmentData.description ?? ''
     equipment.initialUseDate = equipmentData.initialUseDate
     equipment.invoiceNumber = equipmentData.invoiceNumber
+    equipment.type = equipmentData.type as Type;
 
     switch (equipmentData.type) {
       case Type.CPU:
