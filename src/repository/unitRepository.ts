@@ -7,6 +7,10 @@ export class UnitRepository implements UnitRepositoryProcol {
   constructor() {
     this.unitRepository = dataSource.getRepository(Unit)
   }
+  findAll(): Promise<Unit[] | null> {
+    const units = this.unitRepository.find()
+    return units
+  }
 
   async create(unitData: Unit): Promise<Unit> {
     const unit = this.unitRepository.create({
