@@ -1,3 +1,5 @@
+import { OrderService } from './order-service'
+
 export type Unit = {
   id: string
 
@@ -8,4 +10,6 @@ export type Unit = {
   createdAt: Date
 
   updatedAt: Date
+
+  orderServices: OrderService[]
 }

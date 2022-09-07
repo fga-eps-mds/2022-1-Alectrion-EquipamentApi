@@ -1,5 +1,6 @@
 import { Equipment } from './equipment'
 import { History } from './history'
+import { Unit } from './unit'
 
 export type Dismissed = {
   id: string
@@ -8,15 +9,17 @@ export type Dismissed = {
 
   description: string
 
-  equipament: Equipment
-
-  history: History
-
-  equipamentSnapshot: any
-
   authorId: string
+
+  equipmentSnapshot: any
 
   createdAt: Date
 
   updatedAt: Date
+
+  equipment: Equipment
+
+  history: History
+
+  destination: Unit
 }

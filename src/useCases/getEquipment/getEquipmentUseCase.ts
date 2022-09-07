@@ -1,5 +1,6 @@
-import { Equipment } from '../../db/entities/equipament'
-import { Repository } from '../../repository/protocol/repository'
+import { Equipment } from '../../db/entities/equipment'
+import { EquipmentRepositoryProtocol } from '../../repository/protocol/equipmentRepositoryProtocol'
+
 import { UseCase, UseCaseReponse } from '../protocol/useCase'
 
 export class NotFoundEquipment extends Error {
@@ -47,9 +48,12 @@ export interface GetEquipmentInput {
   createdAt?: Date
 }
 
-class GetEquipmentUseCase implements UseCase<Equipment[]> {
+class GetEquipmentUseCase implements UseCase<GetEquipmentInput, Equipment[]> {
   // eslint-disable-next-line no-useless-constructor
-  constructor(private readonly equipmentRepository: Repository) {}
+  constructor(
+    private readonly equipmentRepository: EquipmentRepositoryProtocol
+  ) {}
+
   async execute(
     query: GetEquipmentInput
   ): Promise<UseCaseReponse<Equipment[]>> {

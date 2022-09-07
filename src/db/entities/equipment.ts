@@ -17,7 +17,6 @@ import { Type } from '../../domain/entities/equipamentEnum/type'
 import { Dismissed } from './dismissed'
 import { EquipmentAcquisition } from './equipment-acquisition'
 import { EquipmentBrand } from './equipment-brand'
-import { History } from './history'
 import { OrderService } from './order-service'
 import { Unit } from './unit'
 
@@ -37,9 +36,6 @@ export class Equipment {
     type: 'varchar'
   })
   serialNumber: string
-
-  @Column()
-  acquision: string
 
   @Column({
     type: 'enum',
@@ -117,6 +113,13 @@ export class Equipment {
   })
   storageAmount: string
 
+  @Column({
+    name: 'ram_size',
+    type: 'varchar',
+    nullable: true
+  })
+  ram_size: string
+
   @Column({ type: 'timestamptz' })
   @CreateDateColumn()
   createdAt: Date
@@ -140,11 +143,6 @@ export class Equipment {
   )
   acquisition: EquipmentBrand
 
-  @OneToOne(() => History)
-  @JoinColumn()
-  history: History
-
-  @OneToOne(() => Unit)
-  @JoinColumn()
+  @ManyToOne(() => Unit, (unit) => unit.equipments)
   unit: Unit
 }

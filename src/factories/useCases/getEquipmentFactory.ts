@@ -1,4 +1,4 @@
-import { EquipmentRepository } from '../../repository/equipmentRepository'
+import { EquipmentRepository } from '../../repository/equipamentRepository'
 import { GetEquipmentUseCase } from '../../useCases/getEquipment/getEquipmentUseCase'
 
 export const makeGetEquipmentUseCase = () => {

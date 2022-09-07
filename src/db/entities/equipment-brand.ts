@@ -1,6 +1,6 @@
 /* eslint-disable no-use-before-define */
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
-import { Equipment } from './equipament'
+import { Equipment } from './equipment'
 
 @Entity()
 export class EquipmentBrand {
