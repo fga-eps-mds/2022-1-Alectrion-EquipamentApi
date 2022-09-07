@@ -143,7 +143,9 @@ export class Equipment {
   )
   acquisition: EquipmentBrand
 
-  @OneToOne(() => Unit)
-  @JoinColumn()
+  @ManyToOne(
+    () => Unit,
+    (unit) => unit.equipments
+  )
   unit: Unit
 }
