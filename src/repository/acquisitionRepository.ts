@@ -8,6 +8,11 @@ export class AcquisitionRepository implements AcquisitionRepositoryProtocol {
     this.acquisitionRepository = dataSource.getRepository(EquipmentAcquisition)
   }
 
+  async findAll(): Promise<EquipmentAcquisition[] | null> {
+    const acquisitions = this.acquisitionRepository.find()
+    return acquisitions
+  }
+
   async create(
     acquisitionData: EquipmentAcquisition
   ): Promise<EquipmentAcquisition | undefined> {

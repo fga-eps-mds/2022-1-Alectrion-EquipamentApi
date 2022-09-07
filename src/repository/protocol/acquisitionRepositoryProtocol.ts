@@ -5,6 +5,7 @@ export interface AcquisitionRepositoryProtocol {
     acqusition: EquipmentAcquisition
   ): Promise<EquipmentAcquisition | undefined>
   findOne(acqusitionId: string): Promise<EquipmentAcquisition | null>
+  findAll(): Promise<EquipmentAcquisition[] | null>
 }
 
 export default AcquisitionRepositoryProtocol
