@@ -1,6 +1,6 @@
-import { CreateEquipmentController } from "../../presentation/controller/createEquipmentController"
-import { makeCreateEquipment } from "../useCases/createEquipment"
+import { CreateEquipmentController } from '../../presentation/controller/createEquipmentController'
+import { makeCreateEquipment } from '../useCases/createEquipment'
 
-export const makeCreateEquipmentController = () =>{
+export const makeCreateEquipmentController = () => {
   return new CreateEquipmentController(makeCreateEquipment())
 }

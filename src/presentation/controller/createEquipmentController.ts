@@ -1,65 +1,59 @@
-import { Equipment } from "../../db/entities/equipment";
-import { EquipmentAcquisition } from "../../db/entities/equipment-acquisition";
-import { EquipmentBrand } from "../../db/entities/equipment-brand";
-import { Unit } from "../../domain/entities/unit";
-import { CreateEquipmentUseCase } from "../../useCases/createEquipment/createEquipmentUseCase";
-import { badRequest, HttpResponse, ok, serverError } from "../helpers";
-import { Controller } from "../protocols/controller";
+import { Equipment } from '../../db/entities/equipment'
+import { CreateEquipmentUseCase } from '../../useCases/createEquipment/createEquipmentUseCase'
+import { HttpResponse, ok, serverError } from '../helpers'
+import { Controller } from '../protocols/controller'
 
 type HttpRequest = {
-  tippingNumber: string;
+  tippingNumber: string
 
-  serialNumber: string;
+  serialNumber: string
 
-  type: string;
+  type: string
 
-  status: string;
+  status: string
 
-  model: string;
+  model: string
 
-  description?: string;
+  description?: string
 
-  initialUseDate: Date;
+  initialUseDate: Date
 
-  screenSize?: string;
+  screenSize?: string
 
-  invoiceNumber: string;
+  invoiceNumber: string
 
-  power?: string;
+  power?: string
 
-  screenType?: string;
+  screenType?: string
 
-  processor?: string;
+  processor?: string
 
-  storageType?: string;
+  storageType?: string
 
-  storageAmount?: string;
+  storageAmount?: string
 
-  brandId: string;
+  brandId: string
 
-  acquisitionId: string;
+  acquisitionId: string
 
-  unitId: string;
+  unitId: string
 
-  ram_size?: string;
-};
+  ram_size?: string
+}
 
-type Model =
-  | Error
-  | Equipment
+type Model = Error | Equipment
 
-export class CreateEquipmentController extends Controller{
-    constructor(private readonly createEquipment: CreateEquipmentUseCase){
-        super();
+export class CreateEquipmentController extends Controller {
+  constructor(private readonly createEquipment: CreateEquipmentUseCase) {
+    super()
+  }
+
+  async perform(params: HttpRequest): Promise<HttpResponse<Model>> {
+    const response = await this.createEquipment.execute(params)
+    if (response.isSuccess && response.data) {
+      return ok(response.data)
+    } else {
+      return serverError(response.error)
     }
-    async perform(params: HttpRequest):Promise<HttpResponse<Model>> {
-        const response = await this.createEquipment.execute(params)
-        if(response.isSuccess && response.data){
-            return ok(response.data)
-        }
-        else{
-            return serverError(response.error)
-        }
-    }
-
+  }
 }
