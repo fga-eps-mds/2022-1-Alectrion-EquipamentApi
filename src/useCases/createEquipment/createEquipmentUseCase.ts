@@ -54,10 +54,22 @@ export class EquipmentTypeError extends Error {
   }
 }
 
-export class NotFoundRelations extends Error {
+export class NotFoundUnit extends Error {
   constructor() {
-    super('Não econtrada marca, aquisicao ou unidade.')
-    this.name = 'NotFoundRelations'
+    super('Não encontrada unidade.')
+    this.name = 'NotFoundUnit'
+  }
+}
+export class NotFoundBrand extends Error {
+  constructor() {
+    super('Não encontrada marca.')
+    this.name = 'NotFoundBrand'
+  }
+}
+export class NotFoundAcquisition extends Error {
+  constructor() {
+    super('Não econtrada meio de aquisição.')
+    this.name = 'NotFoundAcquisition'
   }
 }
 
@@ -120,10 +132,22 @@ class CreateEquipmentUseCase
       equipmentData.acquisitionId
     )
 
-    if (!unit || !brand || !acquisition) {
+    if (!unit) {
       return {
         isSuccess: false,
-        error: new NotFoundRelations()
+        error: new NotFoundUnit()
+      }
+    }
+    if (!brand ) {
+      return {
+        isSuccess: false,
+        error: new NotFoundBrand()
+      }
+    }
+    if (!acquisition) {
+      return {
+        isSuccess: false,
+        error: new NotFoundAcquisition()
       }
     }
 
