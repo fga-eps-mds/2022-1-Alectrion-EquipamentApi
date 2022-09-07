@@ -8,8 +8,13 @@ export class BrandRepository implements BrandRepositoryProtocol {
     this.brandRepository = dataSource.getRepository(EquipmentBrand)
   }
 
+  async findAll(): Promise<EquipmentBrand[] | null> {
+    const brands = await this.brandRepository.find()
+    return brands
+  }
+
   async create(brandData: EquipmentBrand): Promise<EquipmentBrand> {
-    const brand = this.brandRepository.create({
+    const brand = await this.brandRepository.create({
       name: brandData.name
     })
     return await this.brandRepository.save(brand)
