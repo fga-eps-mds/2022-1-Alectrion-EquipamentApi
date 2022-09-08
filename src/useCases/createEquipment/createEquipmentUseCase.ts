@@ -73,6 +73,13 @@ export class NotFoundAcquisition extends Error {
   }
 }
 
+export class NullFields extends Error {
+  constructor() {
+    super('Campos nulos ou vazios.')
+    this.name = 'NullFields'
+  }
+}
+
 export class CreateEquipmentUseCase
   implements UseCase<CreateEquipmentInterface, Equipment>
 {
@@ -83,18 +90,66 @@ export class CreateEquipmentUseCase
     private readonly acquisitionRepository: AcquisitionRepositoryProtocol
   ) {}
 
+  private validFixedFields(equipmentData: CreateEquipmentInterface): boolean {
+    // verdadeiro se sao validos
+
+    if (
+      equipmentData.tippingNumber.trim().length > 0 &&
+      equipmentData.serialNumber.trim().length > 0 &&
+      equipmentData.model.trim().length > 0 &&
+      equipmentData.initialUseDate !== null &&
+      equipmentData.type.trim().length > 0
+    ) {
+      return true
+    } else {
+      return false
+    }
+  }
+
   async execute(
     equipmentData: CreateEquipmentInterface
   ): Promise<UseCaseReponse<Equipment>> {
     const equipment = new Equipment()
+    if (!this.validFixedFields(equipmentData)) {
+      return {
+        isSuccess: false,
+        error: new NullFields()
+      }
+    }
+    const unit = await this.unitRepository.findOne(equipmentData.unitId)
+    const brand = await this.brandRepository.findOne(equipmentData.brandId)
+    const acquisition = await this.acquisitionRepository.findOne(
+      equipmentData.acquisitionId
+    )
+    console.log(acquisition)
+
+    if (!unit) {
+      return {
+        isSuccess: false,
+        error: new NotFoundUnit()
+      }
+    }
+    if (!brand) {
+      return {
+        isSuccess: false,
+        error: new NotFoundBrand()
+      }
+    }
+    if (!acquisition) {
+      return {
+        isSuccess: false,
+        error: new NotFoundAcquisition()
+      }
+    }
+
     equipment.tippingNumber = equipmentData.tippingNumber
     equipment.serialNumber = equipmentData.serialNumber
-    equipment.status = 'ACTIVE' as Status 
+    equipment.status = 'ACTIVE' as Status
     equipment.model = equipmentData.model
     equipment.description = equipmentData.description ?? ''
     equipment.initialUseDate = equipmentData.initialUseDate
     equipment.invoiceNumber = equipmentData.invoiceNumber
-    equipment.type = equipmentData.type as Type;
+    equipment.type = equipmentData.type as Type
 
     switch (equipmentData.type) {
       case Type.CPU:
@@ -120,35 +175,10 @@ export class CreateEquipmentUseCase
         break
 
       default:
-        console.log('Tipo de equipamento não cadastrado')
         return {
           isSuccess: false,
           error: new EquipmentTypeError()
         }
-    }
-    const unit = await this.unitRepository.findOne(equipmentData.unitId)
-    const brand = await this.brandRepository.findOne(equipmentData.brandId)
-    const acquisition = await this.acquisitionRepository.findOne(
-      equipmentData.acquisitionId
-    )
-
-    if (!unit) {
-      return {
-        isSuccess: false,
-        error: new NotFoundUnit()
-      }
-    }
-    if (!brand ) {
-      return {
-        isSuccess: false,
-        error: new NotFoundBrand()
-      }
-    }
-    if (!acquisition) {
-      return {
-        isSuccess: false,
-        error: new NotFoundAcquisition()
-      }
     }
 
     equipment.acquisition = acquisition
@@ -163,5 +193,3 @@ export class CreateEquipmentUseCase
     }
   }
 }
-
-
