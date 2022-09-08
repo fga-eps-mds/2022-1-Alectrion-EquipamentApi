@@ -1,28 +1,25 @@
-module.exports = {
+export default {
+  clearMocks: true,
+
   collectCoverage: true,
+
   collectCoverageFrom: [
-    '<rootDir>/src/**/*.ts',
+    '**/*.ts',
     '!<rootDir>/src/*.{js,ts}',
     '!<rootDir>/src/db/**/*.{js,ts}',
     '!<rootDir>/src/presentation/protocols/*.{js,ts}',
     '!<rootDir>/src/factories/**/*.{js,ts}',
     '!<rootDir>/src/repository/userRepository.ts'
   ],
+
   coverageDirectory: 'coverage',
-  coverageProvider: 'babel',
-  roots: ['<rootDir>/src'],
+
+  roots: ['<rootDir>/src/'],
+
+  testEnvironment: 'node',
+
   transform: {
-    '\\.ts$': 'ts-jest'
+    '.+\\.ts': 'ts-jest'
   },
-  clearMocks: true,
-  reporters: [
-    'default',
-    [
-      'jest-sonar',
-      {
-        outputDirectory: 'report',
-        outputName: 'sonar-report.xml'
-      }
-    ]
-  ]
+  testMatch: ['**/*.spec.ts']
 }

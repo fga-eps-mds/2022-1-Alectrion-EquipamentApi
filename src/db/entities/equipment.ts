@@ -3,10 +3,8 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinColumn,
   ManyToOne,
   OneToMany,
-  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn
 } from 'typeorm'
@@ -143,9 +141,6 @@ export class Equipment {
   )
   acquisition: EquipmentBrand
 
-  @ManyToOne(
-    () => Unit,
-    (unit) => unit.equipments
-  )
+  @ManyToOne(() => Unit, (unit) => unit.equipments)
   unit: Unit
 }

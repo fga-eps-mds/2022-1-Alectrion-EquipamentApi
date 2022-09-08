@@ -89,12 +89,12 @@ export class CreateEquipmentUseCase
     const equipment = new Equipment()
     equipment.tippingNumber = equipmentData.tippingNumber
     equipment.serialNumber = equipmentData.serialNumber
-    equipment.status = 'ACTIVE' as Status 
+    equipment.status = 'ACTIVE' as Status
     equipment.model = equipmentData.model
     equipment.description = equipmentData.description ?? ''
     equipment.initialUseDate = equipmentData.initialUseDate
     equipment.invoiceNumber = equipmentData.invoiceNumber
-    equipment.type = equipmentData.type as Type;
+    equipment.type = equipmentData.type as Type
 
     switch (equipmentData.type) {
       case Type.CPU:
@@ -138,7 +138,7 @@ export class CreateEquipmentUseCase
         error: new NotFoundUnit()
       }
     }
-    if (!brand ) {
+    if (!brand) {
       return {
         isSuccess: false,
         error: new NotFoundBrand()
@@ -163,5 +163,3 @@ export class CreateEquipmentUseCase
     }
   }
 }
-
-
