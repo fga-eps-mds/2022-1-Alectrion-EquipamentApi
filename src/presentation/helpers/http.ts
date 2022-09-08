@@ -30,12 +30,12 @@ export const forbidden = (): HttpResponse<Error> => ({
   data: new ForbiddenError()
 })
 
-export const notFound = (): HttpResponse<Error> => ({
+export const notFound = (error?: any): HttpResponse<Error> => ({
   statusCode: 404,
-  data: new NotFoundError()
+  data: error instanceof Error ? error : new NotFoundError()
 })
 
-export const serverError = (error: any): HttpResponse<Error> => ({
+export const serverError = (error?: any): HttpResponse<Error> => ({
   statusCode: 500,
-  data: new ServerError(error instanceof Error ? error : undefined)
+  data: error instanceof Error ? error : new ServerError()
 })

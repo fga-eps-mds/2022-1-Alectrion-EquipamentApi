@@ -29,4 +29,16 @@ export class ListOneEquipmentTypeormRepository
       return result
     } else return undefined
   }
+
+  async findOne(data: {
+    id?: string
+    tippingNumber?: string
+  }): Promise<Equipment | undefined> {
+    const result = await this.equipmentRepository.findOne({
+      where: { ...data }
+    })
+    if (result) {
+      return result
+    } else return undefined
+  }
 }
