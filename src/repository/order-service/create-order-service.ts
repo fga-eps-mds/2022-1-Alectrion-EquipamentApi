@@ -1,4 +1,4 @@
-import { Equipment } from '../../db/entities/equipment'
+import { Equipment } from '../../domain/entities/equipment'
 import { History } from '../../domain/entities/history'
 import { OrderService } from '../../domain/entities/order-service'
 import { Unit } from '../../domain/entities/unit'

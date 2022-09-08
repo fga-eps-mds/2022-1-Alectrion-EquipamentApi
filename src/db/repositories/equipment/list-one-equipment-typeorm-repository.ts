@@ -3,7 +3,9 @@ import { Equipment } from '../../entities/equipment'
 import { History } from '../../entities/history'
 import { ListOneEquipmentRepository } from './../../../repository/equipment/list-one-equipment'
 
-export class ListOneEquipmentTypeormRepository {
+export class ListOneEquipmentTypeormRepository
+  implements ListOneEquipmentRepository
+{
   private readonly equipmentRepository
   constructor() {
     this.equipmentRepository = dataSource.getRepository(Equipment)
