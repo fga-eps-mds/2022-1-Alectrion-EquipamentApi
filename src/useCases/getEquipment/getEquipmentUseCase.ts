@@ -75,7 +75,7 @@ class GetEquipmentUseCase implements UseCase<GetEquipmentInput, Equipment[]> {
 
     const equipaments = await this.equipmentRepository.genericFind(query)
 
-    if (!equipaments) {
+    if (equipaments.length === 0) {
       return {
         isSuccess: false,
         error: new NotFoundEquipment()
