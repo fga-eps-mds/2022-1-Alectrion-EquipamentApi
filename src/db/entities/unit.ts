@@ -6,8 +6,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn
 } from 'typeorm'
-import { Equipment } from './equipament'
-import { SubUnit } from './subUnit'
+import { OrderService } from './order-service'
 
 @Entity()
 export class Unit {
@@ -28,9 +27,6 @@ export class Unit {
   @UpdateDateColumn()
   updatedAt: Date
 
-  @OneToMany(() => SubUnit, (SubUnit) => SubUnit.unit)
-  subUnit: SubUnit[]
-
-  @OneToMany(() => Equipment, (equipament) => equipament.unit)
-  equipment: Equipment[]
+  @OneToMany(() => OrderService, (orderService) => orderService.destination)
+  orderServices: OrderService[]
 }

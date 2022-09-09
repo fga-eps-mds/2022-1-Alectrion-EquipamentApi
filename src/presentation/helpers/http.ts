@@ -10,6 +10,11 @@ export const ok = <T = any>(data: T): HttpResponse<T> => ({
   data
 })
 
+export const notFound = (error: Error): HttpResponse<Error> => ({
+  statusCode: 404,
+  data: error
+})
+
 export const badRequest = (error: Error): HttpResponse<Error> => ({
   statusCode: 400,
   data: error
@@ -25,7 +30,7 @@ export const forbidden = (): HttpResponse<Error> => ({
   data: new ForbiddenError()
 })
 
-export const serverError = (error: unknown): HttpResponse<Error> => ({
+export const serverError = (error?: unknown): HttpResponse<Error> => ({
   statusCode: 500,
   data: new ServerError(error instanceof Error ? error : undefined)
 })
