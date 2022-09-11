@@ -9,7 +9,7 @@ export class NotOSFoundError extends Error {
   }
 }
 
-type FindOrderServiceUseCaseData = {
+export type FindOrderServiceUseCaseData = {
   equipmentId: string
   authorId: string
   authorFunctionalNumber: string
