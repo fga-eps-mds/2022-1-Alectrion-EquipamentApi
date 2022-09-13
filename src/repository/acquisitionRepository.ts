@@ -15,7 +15,7 @@ export class AcquisitionRepository implements AcquisitionRepositoryProtocol {
 
   async create(
     acquisitionData: EquipmentAcquisition
-  ): Promise<EquipmentAcquisition | undefined> {
+  ): Promise<EquipmentAcquisition | null> {
     const acquisition = this.acquisitionRepository.create({
       name: acquisitionData.name
     })
@@ -25,6 +25,15 @@ export class AcquisitionRepository implements AcquisitionRepositoryProtocol {
   async findOne(acquisitionId: string): Promise<EquipmentAcquisition | null> {
     const result = await this.acquisitionRepository.findOneBy({
       id: acquisitionId
+    })
+    return result
+  }
+
+  async findOneByName(
+    acquisitionName: string
+  ): Promise<EquipmentAcquisition | null> {
+    const result = await this.acquisitionRepository.findOne({
+      where: { name: acquisitionName }
     })
     return result
   }
