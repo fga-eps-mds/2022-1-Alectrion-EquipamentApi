@@ -39,9 +39,9 @@ type HttpRequest = {
 
   storageAmount?: string
 
-  brandId: string
+  brandName: string
 
-  acquisitionId: string
+  acquisitionName: string
 
   unitId: string
 
