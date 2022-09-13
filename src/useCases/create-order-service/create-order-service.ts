@@ -19,6 +19,7 @@ import {
 
 type CreateOrderServiceUseCaseData = {
   equipmentId: string
+  description: string
   authorId: string
   authorFunctionalNumber: string
   destination: string
@@ -41,7 +42,7 @@ export class CreateOrderServiceUseCase
   ) {}
 
   async execute(data: CreateOrderServiceUseCaseData) {
-    if (!data.authorId || !data.authorFunctionalNumber) {
+    if (!data.authorFunctionalNumber) {
       return {
         isSuccess: false,
         error: new InvalidAuthorError()
@@ -98,7 +99,7 @@ export class CreateOrderServiceUseCase
       const orderService = await this.createOrderServiceRepository.create({
         authorId: data.authorId,
         authorFunctionalNumber: data.authorFunctionalNumber,
-        description: 'teste',
+        description: data.description,
         destination: unit,
         equipment,
         history: this.history,

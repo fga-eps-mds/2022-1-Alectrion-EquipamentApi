@@ -8,10 +8,13 @@
     "allowJs": true,
     "outDir": "dist",
     "esModuleInterop": true,
+    "declaration": true,
     "forceConsistentCasingInFileNames": true,
-    "strict": true,
+    "strict": false,
     "strictPropertyInitialization": false,
     "skipLibCheck": true
   },
-  "exclude": ["jest.config.js", "dist", "coverage", "jest-unit-config.ts"]
+  "include": ["**/*.ts"],
+  "exclude": ["jest.config.js", "dist", "coverage", "jest-unit-config.ts"],
+  "files":["custom.d.ts"]
 }

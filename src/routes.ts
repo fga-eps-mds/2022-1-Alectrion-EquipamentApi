@@ -6,11 +6,13 @@ import { makeFindOneEquipmentController } from './factories/controllers/find-one
 import { makeFindOrderServiceController } from './factories/controllers/find-order-service'
 import { makeFindAllUnitsController } from './factories/controllers/findAllUnits'
 import { makeGetEquipmentController } from './factories/controllers/getEquipment'
+import { checkAccessToken } from './middlewares/auth-middleware'
 
 const routes = Router()
 
 routes.post(
   '/create-order-service/:equipmentId',
+  checkAccessToken,
   adapt(makeCreateOrderController())
 )
 routes.post('/createEquipment', adapt(makeCreateEquipmentController()))
