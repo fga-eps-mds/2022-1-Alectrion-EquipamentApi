@@ -26,4 +26,11 @@ export class BrandRepository implements BrandRepositoryProtocol {
     })
     return result
   }
+
+  async findOneByName(brandName: string): Promise<EquipmentBrand | null> {
+    const result = await this.brandRepository.findOneBy({
+      name: brandName
+    })
+    return result
+  }
 }
