@@ -1,4 +1,4 @@
-import { Equipment } from '../../db/entities/equipament'
+import { Equipment } from '../../domain/entities/equipment'
 
 export interface Repository {
   create(equipment: Equipment): Promise<Equipment>
