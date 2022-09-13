@@ -10,7 +10,7 @@ import {
   UpdateDateColumn
 } from 'typeorm'
 import { Dismissed } from './dismissed'
-import { Equipment } from './equipament'
+import { Equipment } from './equipment'
 import { OrderService } from './order-service'
 
 @Entity()

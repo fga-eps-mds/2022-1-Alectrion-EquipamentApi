@@ -3,10 +3,8 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinColumn,
   ManyToOne,
   OneToMany,
-  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn
 } from 'typeorm'
@@ -36,9 +34,6 @@ export class Equipment {
     type: 'varchar'
   })
   serialNumber: string
-
-  @Column()
-  acquision: string
 
   @Column({
     type: 'enum',
@@ -116,6 +111,13 @@ export class Equipment {
   })
   storageAmount: string
 
+  @Column({
+    name: 'ram_size',
+    type: 'varchar',
+    nullable: true
+  })
+  ram_size: string
+
   @Column({ type: 'timestamptz' })
   @CreateDateColumn()
   createdAt: Date
@@ -139,7 +141,6 @@ export class Equipment {
   )
   acquisition: EquipmentBrand
 
-  @OneToOne(() => Unit)
-  @JoinColumn()
+  @ManyToOne(() => Unit, (unit) => unit.equipments)
   unit: Unit
 }

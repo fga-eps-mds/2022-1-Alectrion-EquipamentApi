@@ -7,7 +7,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn
 } from 'typeorm'
-import { Equipment } from './equipament'
+import { Equipment } from './equipment'
 import { History } from './history'
 import { Unit } from './unit'
 
