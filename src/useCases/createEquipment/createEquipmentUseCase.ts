@@ -1,4 +1,7 @@
 import { Equipment } from '../../db/entities/equipment'
+import { EquipmentAcquisition } from '../../db/entities/equipment-acquisition'
+import { EquipmentBrand } from '../../db/entities/equipment-brand'
+
 import { ScreenType } from '../../domain/entities/equipamentEnum/screenType'
 import { Status } from '../../domain/entities/equipamentEnum/status'
 import { StorageType } from '../../domain/entities/equipamentEnum/storageType'
@@ -38,9 +41,9 @@ export interface CreateEquipmentInterface {
 
   storageAmount?: string
 
-  brandId: string
+  brandName: string
 
-  acquisitionId: string
+  acquisitionName: string
 
   unitId: string
 
@@ -117,28 +120,33 @@ export class CreateEquipmentUseCase
       }
     }
     const unit = await this.unitRepository.findOne(equipmentData.unitId)
-    const brand = await this.brandRepository.findOne(equipmentData.brandId)
-    const acquisition = await this.acquisitionRepository.findOne(
-      equipmentData.acquisitionId
+
+    let brand = await this.brandRepository.findOneByName(
+      equipmentData.brandName
     )
-    console.log(acquisition)
+    let acquisition = await this.acquisitionRepository.findOneByName(
+      equipmentData.acquisitionName
+    )
+    if (!brand) {
+      brand = await this.brandRepository.create({
+        name: equipmentData.brandName,
+        id: '',
+        equipment: []
+      })
+    }
+
+    if (!acquisition) {
+      acquisition = await this.acquisitionRepository.create({
+        name: equipmentData.acquisitionName,
+        id: '',
+        equipment: []
+      })
+    }
 
     if (!unit) {
       return {
         isSuccess: false,
         error: new NotFoundUnit()
-      }
-    }
-    if (!brand) {
-      return {
-        isSuccess: false,
-        error: new NotFoundBrand()
-      }
-    }
-    if (!acquisition) {
-      return {
-        isSuccess: false,
-        error: new NotFoundAcquisition()
       }
     }
 
@@ -180,11 +188,9 @@ export class CreateEquipmentUseCase
           error: new EquipmentTypeError()
         }
     }
-
-    equipment.acquisition = acquisition
+    equipment.acquisition = acquisition as EquipmentAcquisition
     equipment.unit = unit
-    equipment.brand = brand
-
+    equipment.brand = brand as EquipmentBrand
     await this.equipmentRepository.create(equipment)
 
     return {
