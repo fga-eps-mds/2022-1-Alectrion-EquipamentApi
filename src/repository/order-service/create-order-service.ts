@@ -9,6 +9,7 @@ export type CreateOrderServiceData = {
   equipmentSnapshot: any
   description: string
   authorId: string
+  receiverName: string
   authorFunctionalNumber: string
   destination: Unit
   senderName: string
