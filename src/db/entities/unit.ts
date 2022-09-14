@@ -33,5 +33,4 @@ export class Unit {
 
   @OneToMany(() => Equipment, (equipment) => equipment.unit)
   equipments: Equipment[]
-
 }

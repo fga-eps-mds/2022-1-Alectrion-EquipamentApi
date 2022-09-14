@@ -3,7 +3,9 @@ import { Equipment } from '../../entities/equipment'
 import { History } from '../../entities/history'
 import { ListOneEquipmentRepository } from './../../../repository/equipment/list-one-equipment'
 
-export class ListOneEquipmentTypeormRepository {
+export class ListOneEquipmentTypeormRepository
+  implements ListOneEquipmentRepository
+{
   private readonly equipmentRepository
   constructor() {
     this.equipmentRepository = dataSource.getRepository(Equipment)
@@ -23,6 +25,18 @@ export class ListOneEquipmentTypeormRepository {
       )
       .getOne()
 
+    if (result) {
+      return result
+    } else return undefined
+  }
+
+  async findOne(data: {
+    id?: string
+    tippingNumber?: string
+  }): Promise<Equipment | undefined> {
+    const result = await this.equipmentRepository.findOne({
+      where: { ...data }
+    })
     if (result) {
       return result
     } else return undefined

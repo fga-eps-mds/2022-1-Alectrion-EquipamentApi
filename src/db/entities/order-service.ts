@@ -24,7 +24,8 @@ export class OrderService {
 
   @Column({
     name: 'description',
-    type: 'varchar'
+    type: 'varchar',
+    nullable: true
   })
   description: string
 
@@ -33,6 +34,13 @@ export class OrderService {
     name: 'author_id'
   })
   authorId: string
+
+  @Column({
+    type: 'varchar',
+    name: 'receiver_name',
+    nullable: true
+  })
+  receiverName?: string
 
   @Column({
     type: 'varchar',

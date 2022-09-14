@@ -5,11 +5,13 @@ import { RequestHandler } from 'express'
 type Adapter = (controller: Controller) => RequestHandler
 
 export const adaptExpressRoute: Adapter = (controller) => async (req, res) => {
+  const userId = req.userId
   try {
     const { statusCode, data } = await controller.handle({
       ...req.body,
       ...req.query,
-      ...req.params
+      ...req.params,
+      userId
     })
     const json = [200, 204].includes(statusCode)
       ? data

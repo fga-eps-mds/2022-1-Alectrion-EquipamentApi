@@ -1,5 +1,7 @@
+import { Status } from '../../domain/entities/equipamentEnum/status'
 import { History } from '../../domain/entities/history'
 import { OrderService } from '../../domain/entities/order-service'
+import { UpdateEquipmentRepository } from '../../repository/equipment/update-equipment'
 import { CreateHistoryRepository } from '../../repository/history/create-history-repository'
 import { CreateOrderServiceRepository } from '../../repository/order-service/create-order-service'
 import { ListOneUnitRepository } from '../../repository/unit/list-one-unit'
@@ -17,7 +19,9 @@ import {
 
 type CreateOrderServiceUseCaseData = {
   equipmentId: string
+  description: string
   authorId: string
+  receiverName: string
   authorFunctionalNumber: string
   destination: string
   senderName: string
@@ -32,13 +36,14 @@ export class CreateOrderServiceUseCase
 
   constructor(
     private readonly equipmentRepository: ListOneEquipmentRepository,
+    private readonly updateEquipmentRepository: UpdateEquipmentRepository,
     private readonly unitRepository: ListOneUnitRepository,
     private readonly historyRepository: CreateHistoryRepository,
     private readonly createOrderServiceRepository: CreateOrderServiceRepository
   ) {}
 
   async execute(data: CreateOrderServiceUseCaseData) {
-    if (!data.authorId || !data.authorFunctionalNumber) {
+    if (!data.authorFunctionalNumber || !data.receiverName) {
       return {
         isSuccess: false,
         error: new InvalidAuthorError()
@@ -92,12 +97,11 @@ export class CreateOrderServiceUseCase
     } else this.history = equipment.history
 
     if (this.history !== null) {
-      console.log(this.history)
-
       const orderService = await this.createOrderServiceRepository.create({
         authorId: data.authorId,
+        receiverName: data.receiverName,
         authorFunctionalNumber: data.authorFunctionalNumber,
-        description: 'teste',
+        description: data.description,
         destination: unit,
         equipment,
         history: this.history,
@@ -105,6 +109,10 @@ export class CreateOrderServiceUseCase
         senderName: data.senderName,
         senderFunctionalNumber: data.senderFunctionalNumber,
         date: new Date(data.date)
+      })
+
+      await this.updateEquipmentRepository.updateEquipment(equipment.id, {
+        status: Status.MAINTENANCE
       })
 
       return {
