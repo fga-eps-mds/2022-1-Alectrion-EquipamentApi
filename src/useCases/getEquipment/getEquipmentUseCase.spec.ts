@@ -1,8 +1,4 @@
-import {
-  GetEquipmentUseCase,
-  GetEquipmentInput,
-  NotFoundEquipment
-} from './getEquipmentUseCase'
+import { GetEquipmentUseCase, NotFoundEquipment } from './getEquipmentUseCase'
 import { mock } from 'jest-mock-extended'
 import { EquipmentRepositoryProtocol } from '../../repository/protocol/equipmentRepositoryProtocol'
 import { Equipment } from '../../db/entities/equipment'
