@@ -13,6 +13,7 @@ import { Controller } from '../protocols/controller'
 type HttpRequest = {
   equipmentId: string
   userId: string
+  receiverName: string
   authorFunctionalNumber: string
   destination: string
   senderName: string
@@ -35,7 +36,8 @@ export class CreateOrderServiceController extends Controller {
       senderName: params.senderName,
       senderFunctionalNumber: params.senderFunctionalNumber,
       date: params.date,
-      description: params.description
+      description: params.description,
+      receiverName: params.receiverName
     })
 
     if (

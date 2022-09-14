@@ -21,6 +21,7 @@ type CreateOrderServiceUseCaseData = {
   equipmentId: string
   description: string
   authorId: string
+  receiverName: string
   authorFunctionalNumber: string
   destination: string
   senderName: string
@@ -42,7 +43,7 @@ export class CreateOrderServiceUseCase
   ) {}
 
   async execute(data: CreateOrderServiceUseCaseData) {
-    if (!data.authorFunctionalNumber) {
+    if (!data.authorFunctionalNumber || !data.receiverName) {
       return {
         isSuccess: false,
         error: new InvalidAuthorError()
@@ -98,6 +99,7 @@ export class CreateOrderServiceUseCase
     if (this.history !== null) {
       const orderService = await this.createOrderServiceRepository.create({
         authorId: data.authorId,
+        receiverName: data.receiverName,
         authorFunctionalNumber: data.authorFunctionalNumber,
         description: data.description,
         destination: unit,

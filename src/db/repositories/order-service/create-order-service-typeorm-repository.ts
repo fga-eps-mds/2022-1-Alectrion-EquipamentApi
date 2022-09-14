@@ -18,6 +18,7 @@ export class CreateOrderServiceTypeOrmRepository {
       destination: data.destination,
       equipment: data.equipment,
       equipmentSnapshot: data.equipmentSnapshot,
+      receiverName: data.receiverName,
       senderFunctionalNumber: data.senderFunctionalNumber
     })
 
