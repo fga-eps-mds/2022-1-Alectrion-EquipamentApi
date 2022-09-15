@@ -25,7 +25,9 @@ export interface CreateEquipmentInterface {
 
   description?: string
 
-  initialUseDate: Date
+  initialUseDate: string
+
+  acquisitionDate: Date
 
   screenSize?: string
 
@@ -156,6 +158,7 @@ export class CreateEquipmentUseCase
     equipment.model = equipmentData.model
     equipment.description = equipmentData.description ?? ''
     equipment.initialUseDate = equipmentData.initialUseDate
+    equipment.acquisitionDate = equipmentData.acquisitionDate
     equipment.invoiceNumber = equipmentData.invoiceNumber
     equipment.type = equipmentData.type as Type
 

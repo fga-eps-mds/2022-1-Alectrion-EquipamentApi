@@ -23,7 +23,9 @@ type HttpRequest = {
 
   description?: string
 
-  initialUseDate: Date
+  initialUseDate: string
+
+  acquisitionDate: Date
 
   screenSize?: string
 
