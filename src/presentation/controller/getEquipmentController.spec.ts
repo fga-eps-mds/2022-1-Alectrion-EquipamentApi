@@ -7,6 +7,7 @@ import {
 import { GetEquipmentController } from './getEquipmentController'
 import { datatype } from 'faker'
 import { notFound, ok, serverError } from '../helpers'
+import { ServerError } from '../errors'
 
 const useCaseMocked = mock<GetEquipmentUseCase>()
 const getEquipmentController = new GetEquipmentController(useCaseMocked)
@@ -60,11 +61,11 @@ describe('Should test GetEquipmentController', () => {
   it('should return server error', async () => {
     useCaseMocked.execute.mockResolvedValue({
       isSuccess: false,
-      error: new Error()
+      error: new ServerError()
     })
     const query = { id: datatype.string() }
     const response = await getEquipmentController.perform(query)
-    expect(response).toEqual(serverError(''))
+    expect(response).toEqual(serverError())
     expect(useCaseMocked.execute).toHaveBeenCalled()
     expect(useCaseMocked.execute).toHaveBeenCalledWith(query)
   })
