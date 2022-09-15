@@ -32,7 +32,7 @@ export class default1662338915179 implements MigrationInterface {
       `CREATE TYPE "public"."equipment_storage_type_enum" AS ENUM('HD', 'SSD')`
     )
     await queryRunner.query(
-      `CREATE TABLE "equipment" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "tipping_number" character varying NOT NULL, "acquision" character varying NOT NULL, "type" "public"."equipment_type_enum" NOT NULL, "status" "public"."equipment_status_enum" NOT NULL, "model" character varying NOT NULL, "description" character varying NOT NULL, "initial_use_date" date NOT NULL, "screen_size" character varying, "invoice_number" character varying NOT NULL, "power" character varying, "screen_type" "public"."equipment_screen_type_enum", "processor" character varying, "storage_type" "public"."equipment_storage_type_enum", "storage_amount" character varying, "createdAt" TIMESTAMP NOT NULL DEFAULT now(), "updatedAt" TIMESTAMP NOT NULL DEFAULT now(), "brandId" uuid, "acquisitionId" uuid, "historyId" uuid, "unitId" uuid, CONSTRAINT "REL_cc5fce306a17e42580a34908af" UNIQUE ("unitId"), CONSTRAINT "PK_0722e1b9d6eb19f5874c1678740" PRIMARY KEY ("id"))`
+      `CREATE TABLE "equipment" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "tipping_number" character varying NOT NULL, "acquision" character varying NOT NULL, "type" "public"."equipment_type_enum" NOT NULL, "status" "public"."equipment_status_enum" NOT NULL, "model" character varying NOT NULL, "description" character varying NOT NULL, "initial_use_date" character varying NOT NULL, "acquisition_date" date  NOT NULL, "screen_size" character varying, "invoice_number" character varying NOT NULL, "power" character varying, "screen_type" "public"."equipment_screen_type_enum", "processor" character varying, "storage_type" "public"."equipment_storage_type_enum", "storage_amount" character varying, "createdAt" TIMESTAMP NOT NULL DEFAULT now(), "updatedAt" TIMESTAMP NOT NULL DEFAULT now(), "brandId" uuid, "acquisitionId" uuid, "historyId" uuid, "unitId" uuid, CONSTRAINT "REL_cc5fce306a17e42580a34908af" UNIQUE ("unitId"), CONSTRAINT "PK_0722e1b9d6eb19f5874c1678740" PRIMARY KEY ("id"))`
     )
     await queryRunner.query(
       `CREATE TABLE "equipment_brand" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "name" character varying NOT NULL, CONSTRAINT "PK_ba1f5659893d908eaabb38453a6" PRIMARY KEY ("id"))`
@@ -53,7 +53,7 @@ export class default1662338915179 implements MigrationInterface {
       `ALTER TABLE "dismissed" ADD CONSTRAINT "FK_99350223cbb8b1da6aa4dbb623a" FOREIGN KEY ("historyId") REFERENCES "history"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`
     )
     await queryRunner.query(
-      `ALTER TABLE "dismissed" ADD CONSTRAINT "FK_6cdcb1ed8c88c7b1299450d19e0" FOREIGN KEY ("destinationId") REFERENCES "unit"("id") ON DELETE NO ACTION ON UPDATE NO ACTION` 
+      `ALTER TABLE "dismissed" ADD CONSTRAINT "FK_6cdcb1ed8c88c7b1299450d19e0" FOREIGN KEY ("destinationId") REFERENCES "unit"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`
     )
     await queryRunner.query(
       `ALTER TABLE "equipment" ADD CONSTRAINT "FK_8ff24b5f8b355f88ae94b7e1a22" FOREIGN KEY ("brandId") REFERENCES "equipment_brand"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`
