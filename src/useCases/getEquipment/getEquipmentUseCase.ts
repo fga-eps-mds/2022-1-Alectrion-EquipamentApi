@@ -3,13 +3,6 @@ import { EquipmentRepositoryProtocol } from '../../repository/protocol/equipment
 
 import { UseCase, UseCaseReponse } from '../protocol/useCase'
 
-export class NotFoundEquipment extends Error {
-  constructor() {
-    super('Equipamento(s) não econtrado(s).')
-    this.name = 'NotFoundEquipment'
-  }
-}
-
 export interface GetEquipmentInput {
   id?: string
 
@@ -43,6 +36,8 @@ export interface GetEquipmentInput {
 
   storageType?: string
 
+  ram_size?: string
+
   storageAmount?: string
 
   createdAt?: Date
@@ -63,8 +58,8 @@ class GetEquipmentUseCase implements UseCase<GetEquipmentInput, Equipment[]> {
         await this.equipmentRepository.findByTippingNumberOrSerialNumber(id)
       if (!equipment) {
         return {
-          isSuccess: false,
-          error: new NotFoundEquipment()
+          isSuccess: true,
+          data: []
         }
       }
       return {
@@ -77,8 +72,8 @@ class GetEquipmentUseCase implements UseCase<GetEquipmentInput, Equipment[]> {
 
     if (equipaments.length === 0) {
       return {
-        isSuccess: false,
-        error: new NotFoundEquipment()
+        isSuccess: true,
+        data: []
       }
     }
 
