@@ -31,4 +31,11 @@ export class EquipmentRepository implements EquipmentRepositoryProtocol {
   findByTippingNumberOrSerialNumber(id: string): Promise<Equipment | null> {
     throw new Error('Method not implemented.')
   }
+
+  async findByTippingNumber(tippingNumber: string): Promise<Equipment | null> {
+    const result = await this.equipmentRepository.findOneBy({
+      tippingNumber
+    })
+    return result
+  }
 }
