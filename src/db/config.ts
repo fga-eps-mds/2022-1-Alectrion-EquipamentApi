@@ -6,6 +6,9 @@ export const dataSource = new DataSource({
   url: process.env.DB_URL,
   synchronize: true,
   migrationsRun: true,
+  ssl: {
+    rejectUnauthorized: false
+  },
   entities: [__dirname + '/entities/*{.ts, .js}'],
   migrations: [__dirname + '/migrations/*{.ts, .js}']
 })
