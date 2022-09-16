@@ -65,23 +65,18 @@ export class NotFoundUnit extends Error {
     this.name = 'NotFoundUnit'
   }
 }
-export class NotFoundBrand extends Error {
-  constructor() {
-    super('Não encontrada marca.')
-    this.name = 'NotFoundBrand'
-  }
-}
-export class NotFoundAcquisition extends Error {
-  constructor() {
-    super('Não econtrada meio de aquisição.')
-    this.name = 'NotFoundAcquisition'
-  }
-}
-
 export class NullFields extends Error {
   constructor() {
     super('Campos nulos ou vazios.')
     this.name = 'NullFields'
+  }
+}
+export class InvalidTippingNumber extends Error {
+  constructor() {
+    super(
+      'Tippingnumber nao pode ser igual ao de um equipamento ja cadastrado.'
+    )
+    this.name = 'InvalidTippingNumber'
   }
 }
 
@@ -96,8 +91,6 @@ export class CreateEquipmentUseCase
   ) {}
 
   private validFixedFields(equipmentData: CreateEquipmentInterface): boolean {
-    // verdadeiro se sao validos
-
     if (
       equipmentData.tippingNumber.trim().length > 0 &&
       equipmentData.serialNumber.trim().length > 0 &&
@@ -108,6 +101,46 @@ export class CreateEquipmentUseCase
       return true
     } else {
       return false
+    }
+  }
+
+  private validCpuFields(equipmentData: CreateEquipmentInterface): boolean {
+    if (
+      !equipmentData.processor ||
+      !equipmentData.storageAmount ||
+      !equipmentData.storageType ||
+      !equipmentData.ram_size
+    ) {
+      return false
+    } else {
+      return true
+    }
+  }
+
+  private validMonitorFields(equipmentData: CreateEquipmentInterface): boolean {
+    if (!equipmentData.screenType || !equipmentData.screenSize) {
+      return false
+    } else {
+      if (
+        equipmentData.screenType !== ScreenType.IPS &&
+        equipmentData.screenType !== ScreenType.LCD &&
+        equipmentData.screenType !== ScreenType.LED &&
+        equipmentData.screenType !== ScreenType.OLED &&
+        equipmentData.screenType !== ScreenType.TN &&
+        equipmentData.screenType !== ScreenType.VA
+      ) {
+        return false
+      }
+
+      return true
+    }
+  }
+
+  private validOthersFields(equipmentData: CreateEquipmentInterface): boolean {
+    if (!equipmentData.power) {
+      return false
+    } else {
+      return true
     }
   }
 
@@ -126,9 +159,11 @@ export class CreateEquipmentUseCase
     let brand = await this.brandRepository.findOneByName(
       equipmentData.brandName
     )
-    let acquisition = await this.acquisitionRepository.findOneByName(
+
+    const acquisition = await this.acquisitionRepository.findOneByName(
       equipmentData.acquisitionName
     )
+
     if (!brand) {
       brand = await this.brandRepository.create({
         name: equipmentData.brandName,
@@ -138,7 +173,7 @@ export class CreateEquipmentUseCase
     }
 
     if (!acquisition) {
-      acquisition = await this.acquisitionRepository.create({
+      brand = await this.acquisitionRepository.create({
         name: equipmentData.acquisitionName,
         id: '',
         equipment: []
@@ -151,10 +186,19 @@ export class CreateEquipmentUseCase
         error: new NotFoundUnit()
       }
     }
-
+    const tippingNumber = await this.equipmentRepository.findByTippingNumber(
+      equipmentData.tippingNumber
+    )
+    if (tippingNumber) {
+      return {
+        isSuccess: false,
+        error: new InvalidTippingNumber()
+      }
+    }
     equipment.tippingNumber = equipmentData.tippingNumber
     equipment.serialNumber = equipmentData.serialNumber
-    equipment.status = 'ACTIVE' as Status
+    equipment.status =
+      (equipmentData.status as Status) ?? ('TECHNICAL_RESERVE' as Status)
     equipment.model = equipmentData.model
     equipment.description = equipmentData.description ?? ''
     equipment.initialUseDate = equipmentData.initialUseDate
@@ -164,25 +208,62 @@ export class CreateEquipmentUseCase
 
     switch (equipmentData.type) {
       case Type.CPU:
+        if (!this.validCpuFields(equipmentData)) {
+          return {
+            isSuccess: false,
+            error: new NullFields()
+          }
+        }
         equipment.processor = equipmentData.processor ?? ''
         equipment.storageAmount = equipmentData.storageAmount ?? ''
         equipment.storageType = equipmentData.storageType as StorageType
         equipment.ram_size = equipmentData.ram_size ?? ''
         break
       case Type.MONITOR:
+        if (!this.validMonitorFields(equipmentData)) {
+          return {
+            isSuccess: false,
+            error: new NullFields()
+          }
+        }
         equipment.screenType = equipmentData.screenType as ScreenType
         equipment.screenSize = equipmentData.screenSize ?? ''
         break
+
+      case Type.WEBCAM:
+        break
       case Type.NOBREAK:
+        if (!this.validOthersFields(equipmentData)) {
+          return {
+            isSuccess: false,
+            error: new NullFields()
+          }
+        }
+        if (!equipmentData.power) {
+          return {
+            isSuccess: false,
+            error: new NullFields()
+          }
+        }
         equipment.power = equipmentData.power ?? ''
         break
       case Type.SCANNER:
+        if (!equipmentData.power) {
+          return {
+            isSuccess: false,
+            error: new NullFields()
+          }
+        }
         equipment.power = equipmentData.power ?? ''
         break
       case Type.STABILIZER:
+        if (!equipmentData.power) {
+          return {
+            isSuccess: false,
+            error: new NullFields()
+          }
+        }
         equipment.power = equipmentData.power ?? ''
-        break
-      case Type.WEBCAM:
         break
 
       default:
