@@ -15,6 +15,7 @@ export class GetEquipmentController extends Controller {
   }
 
   async perform(params: HttpRequest): Promise<HttpResponse<Model>> {
+    delete params.userId
     const response = await this.getEquipmentUseCase.execute(params)
     if (response.isSuccess && response.data) {
       return ok(response.data)
