@@ -10,6 +10,7 @@ export class NotOSFoundError extends Error {
 }
 
 export type FindOrderServiceUseCaseData = {
+  receiverName: string
   equipmentId: string
   authorId: string
   authorFunctionalNumber: string
@@ -17,6 +18,10 @@ export type FindOrderServiceUseCaseData = {
   senderName: string
   senderFunctionalNumber: string
   date: string
+  tippingNumber: string
+  serialNumber: string
+  type: string
+  status: string
 }
 
 export class FindOrderService
@@ -26,7 +31,20 @@ export class FindOrderService
   async execute(
     query: FindOrderServiceUseCaseData
   ): Promise<UseCaseReponse<OrderService[]>> {
-    const ordersServices = await this.osReposiory.findOrderServiceGeneric(query)
+    const queryFormatted = {
+      date: query.date,
+      receiverName: query.receiverName,
+      senderFunctionalNumber: query.senderFunctionalNumber,
+      equipment: {
+        tippingNumber: query.tippingNumber,
+        serialNumber: query.serialNumber,
+        type: query.type,
+        status: query.status
+      }
+    }
+    const ordersServices = await this.osReposiory.findOrderServiceGeneric(
+      queryFormatted
+    )
     if (ordersServices !== null) {
       return {
         isSuccess: true,
