@@ -13,7 +13,10 @@ export class ListOrderServiceRepository
   async findOrderServiceGeneric(
     query: any
   ): Promise<OrderService[] | undefined> {
+    delete query.userId
+
     const os = await this.orderServiceRepository.find({
+      relations: ['equipment'],
       where: {
         ...query
       }
