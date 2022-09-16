@@ -12,11 +12,13 @@ import { Controller } from '../protocols/controller'
 
 type HttpRequest = {
   equipmentId: string
-  authorId: string
+  userId: string
+  receiverName: string
   authorFunctionalNumber: string
   destination: string
   senderName: string
   senderFunctionalNumber: string
+  description: string
   date: string
 }
 
@@ -28,12 +30,14 @@ export class CreateOrderServiceController extends Controller {
   async perform(params: HttpRequest) {
     const response = await this.createOrderServiceUseCase.execute({
       equipmentId: params.equipmentId,
-      authorId: params.authorId,
+      authorId: params.userId,
       authorFunctionalNumber: params.authorFunctionalNumber,
       destination: params.destination,
       senderName: params.senderName,
       senderFunctionalNumber: params.senderFunctionalNumber,
-      date: params.date
+      date: params.date,
+      description: params.description,
+      receiverName: params.receiverName
     })
 
     if (

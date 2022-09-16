@@ -4,6 +4,7 @@ import { ScreenType } from './equipamentEnum/screenType'
 import { Status } from './equipamentEnum/status'
 import { StorageType } from './equipamentEnum/storageType'
 import { Type } from './equipamentEnum/type'
+import { History } from './history'
 import { OrderService } from './order-service'
 import { Unit } from './unit'
 
@@ -51,6 +52,8 @@ export type Equipment = {
   acquisition: EquipmentBrand
 
   ram_size?: string
+
+  history?: History
 
   unit: Unit
 }
