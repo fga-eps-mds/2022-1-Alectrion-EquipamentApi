@@ -2,8 +2,7 @@ import { Equipment } from '../../db/entities/equipment'
 import {
   CreateEquipmentUseCase,
   EquipmentTypeError,
-  NotFoundAcquisition,
-  NotFoundBrand,
+  InvalidTippingNumber,
   NotFoundUnit,
   NullFields
 } from '../../useCases/createEquipment/createEquipmentUseCase'
@@ -63,12 +62,10 @@ export class CreateEquipmentController extends Controller {
       return ok(response.data)
     } else if (response.error instanceof NullFields) {
       return badRequest(new NullFields())
-    } else if (response.error instanceof NotFoundAcquisition) {
-      return badRequest(new NotFoundAcquisition())
-    } else if (response.error instanceof NotFoundBrand) {
-      return badRequest(new NotFoundBrand())
+    } else if (response.error instanceof InvalidTippingNumber) {
+      return badRequest(new InvalidTippingNumber())
     } else if (response.error instanceof NotFoundUnit) {
-      return badRequest(new NotFoundBrand())
+      return badRequest(new NotFoundUnit())
     } else if (response.error instanceof EquipmentTypeError) {
       return badRequest(new EquipmentTypeError())
     } else {
