@@ -1,10 +1,9 @@
 import {
   GetEquipmentInput,
-  GetEquipmentUseCase,
-  NotFoundEquipment
+  GetEquipmentUseCase
 } from '../../useCases/getEquipment/getEquipmentUseCase'
 
-import { HttpResponse, notFound, ok, serverError } from '../helpers'
+import { HttpResponse, ok, serverError } from '../helpers'
 import { Controller } from '../protocols/controller'
 
 type HttpRequest = GetEquipmentInput
@@ -20,9 +19,6 @@ export class GetEquipmentController extends Controller {
     if (response.isSuccess && response.data) {
       return ok(response.data)
     } else {
-      if (response.error instanceof NotFoundEquipment) {
-        return notFound()
-      }
       return serverError(response.error)
     }
   }

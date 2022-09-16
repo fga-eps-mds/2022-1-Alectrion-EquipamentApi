@@ -1,4 +1,4 @@
-import { GetEquipmentUseCase, NotFoundEquipment } from './getEquipmentUseCase'
+import { GetEquipmentUseCase } from './getEquipmentUseCase'
 import { mock } from 'jest-mock-extended'
 import { EquipmentRepositoryProtocol } from '../../repository/protocol/equipmentRepositoryProtocol'
 import { Equipment } from '../../db/entities/equipment'
@@ -60,10 +60,7 @@ describe('Should test get equipment', () => {
       null
     )
     const response = await getEquipmentUseCase.execute(queryRequest)
-    expect(response).toEqual({
-      isSuccess: false,
-      error: new NotFoundEquipment()
-    })
+    expect(response).toEqual({ isSuccess: true, data: [] })
     expect(equipmentRepository.findByTippingNumberOrSerialNumber).toBeCalled()
     expect(
       equipmentRepository.findByTippingNumberOrSerialNumber
@@ -97,10 +94,7 @@ describe('Should test get equipment', () => {
     }
     equipmentRepository.genericFind.mockResolvedValue([])
     const response = await getEquipmentUseCase.execute(queryRequest)
-    expect(response).toEqual({
-      isSuccess: false,
-      error: new NotFoundEquipment()
-    })
+    expect(response).toEqual({ isSuccess: true, data: [] })
     expect(equipmentRepository.genericFind).toBeCalled()
     expect(equipmentRepository.genericFind).toBeCalledWith(queryRequest)
   })

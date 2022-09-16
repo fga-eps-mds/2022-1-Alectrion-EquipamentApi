@@ -27,6 +27,11 @@ export class EquipmentRepository implements EquipmentRepositoryProtocol {
   async genericFind(query: any): Promise<Equipment[]> {
     console.log('Query repository: ', query)
     const equipments = await this.equipmentRepository.find({
+      relations: {
+        brand: true,
+        acquisition: true,
+        unit: true
+      },
       where: {
         ...query
       }
@@ -38,6 +43,11 @@ export class EquipmentRepository implements EquipmentRepositoryProtocol {
     id: string
   ): Promise<Equipment | null> {
     const equipment = await this.equipmentRepository.findOne({
+      relations: {
+        brand: true,
+        acquisition: true,
+        unit: true
+      },
       where: [{ tippingNumber: id }, { serialNumber: id }]
     })
     return equipment

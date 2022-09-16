@@ -18,6 +18,7 @@ export const adaptExpressRoute: Adapter = (controller) => async (req, res) => {
       : { error: data.message }
     res.status(statusCode).json(json)
   } catch (error) {
+    console.log('Error: ', error)
     res.status(500).json(error)
   }
 }

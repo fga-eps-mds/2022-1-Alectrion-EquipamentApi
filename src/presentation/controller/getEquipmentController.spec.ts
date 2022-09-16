@@ -1,9 +1,6 @@
 import { mock } from 'jest-mock-extended'
 import { Equipment } from '../../db/entities/equipment'
-import {
-  GetEquipmentUseCase,
-  NotFoundEquipment
-} from '../../useCases/getEquipment/getEquipmentUseCase'
+import { GetEquipmentUseCase } from '../../useCases/getEquipment/getEquipmentUseCase'
 import { GetEquipmentController } from './getEquipmentController'
 import { datatype } from 'faker'
 import { notFound, ok, serverError } from '../helpers'
