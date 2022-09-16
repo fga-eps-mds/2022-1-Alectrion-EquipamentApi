@@ -25,7 +25,8 @@ export class Equipment {
 
   @Column({
     name: 'tipping_number',
-    type: 'varchar'
+    type: 'varchar',
+    unique: true
   })
   tippingNumber: string
 
