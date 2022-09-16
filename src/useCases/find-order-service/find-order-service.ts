@@ -15,7 +15,7 @@ export type FindOrderServiceUseCaseData = {
   authorId: string
   authorFunctionalNumber: string
   destination: string
-  senderName: string
+  sender: string
   senderFunctionalNumber: string
   date: string
   tippingNumber: string
@@ -35,6 +35,7 @@ export class FindOrderService
       date: query.date,
       receiverName: query.receiverName,
       senderFunctionalNumber: query.senderFunctionalNumber,
+      sender: query.sender,
       equipment: {
         tippingNumber: query.tippingNumber,
         serialNumber: query.serialNumber,
