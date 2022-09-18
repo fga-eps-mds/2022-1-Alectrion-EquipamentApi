@@ -5,7 +5,7 @@ export const dataSource = new DataSource({
   type: 'postgres',
   url: process.env.DB_URL,
   synchronize: true,
-  migrationsRun: true,
+  // migrationsRun: true,
   ssl: {
     rejectUnauthorized: false
   },
