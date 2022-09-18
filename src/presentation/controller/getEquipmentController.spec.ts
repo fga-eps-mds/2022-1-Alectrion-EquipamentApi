@@ -36,7 +36,7 @@ describe('Should test GetEquipmentController', () => {
       isSuccess: true,
       data: [mockedEquipmentBase]
     })
-    const query = { id: mockedEquipmentBase.id }
+    const query = { id: mockedEquipmentBase.id, userId: datatype.string() }
     const response = await getEquipmentController.perform(query)
     expect(response).toEqual(ok(response.data))
     expect(useCaseMocked.execute).toHaveBeenCalled()
@@ -46,11 +46,11 @@ describe('Should test GetEquipmentController', () => {
   it('should not find equipment', async () => {
     useCaseMocked.execute.mockResolvedValue({
       isSuccess: true,
-      error: new NotFoundEquipment()
+      data: []
     })
-    const query = { id: datatype.string() }
+    const query = { id: datatype.string(), userId: datatype.string() }
     const response = await getEquipmentController.perform(query)
-    expect(response).toEqual(notFound())
+    expect(response).toEqual(ok([]))
     expect(useCaseMocked.execute).toHaveBeenCalled()
     expect(useCaseMocked.execute).toHaveBeenCalledWith(query)
   })
@@ -58,9 +58,9 @@ describe('Should test GetEquipmentController', () => {
   it('should return server error', async () => {
     useCaseMocked.execute.mockResolvedValue({
       isSuccess: false,
-      error: new ServerError()
+      error: new Error()
     })
-    const query = { id: datatype.string() }
+    const query = { id: datatype.string(), userId: datatype.string() }
     const response = await getEquipmentController.perform(query)
     expect(response).toEqual(serverError())
     expect(useCaseMocked.execute).toHaveBeenCalled()
