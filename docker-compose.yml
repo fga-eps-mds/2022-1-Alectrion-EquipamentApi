@@ -9,6 +9,8 @@ services:
       - ./data:/var/lib/postgresql/data
     ports:
       - '5432:5432'
+    expose:
+      - 5432
 
   equip_api:
     build: .
@@ -20,5 +22,5 @@ services:
       - ./:/app
     ports:
       - 4002:4002
-    command: bash -c "yarn && yarn migration:run && yarn dev"
+    command: bash -c "yarn && yarn dev"
 

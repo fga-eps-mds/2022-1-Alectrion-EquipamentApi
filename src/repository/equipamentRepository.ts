@@ -24,12 +24,33 @@ export class EquipmentRepository implements EquipmentRepositoryProtocol {
     return equipment
   }
 
-  genericFind(query: any): Promise<Equipment[]> {
-    throw new Error('Method not implemented.')
+  async genericFind(query: any): Promise<Equipment[]> {
+    console.log('Query repository: ', query)
+    const equipments = await this.equipmentRepository.find({
+      relations: {
+        brand: true,
+        acquisition: true,
+        unit: true
+      },
+      where: {
+        ...query
+      }
+    })
+    return equipments
   }
 
-  findByTippingNumberOrSerialNumber(id: string): Promise<Equipment | null> {
-    throw new Error('Method not implemented.')
+  async findByTippingNumberOrSerialNumber(
+    id: string
+  ): Promise<Equipment | null> {
+    const equipment = await this.equipmentRepository.findOne({
+      relations: {
+        brand: true,
+        acquisition: true,
+        unit: true
+      },
+      where: [{ tippingNumber: id }, { serialNumber: id }]
+    })
+    return equipment
   }
 
   async findByTippingNumber(tippingNumber: string): Promise<Equipment | null> {

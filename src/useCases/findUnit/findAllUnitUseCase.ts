@@ -2,6 +2,11 @@ import { Unit } from '../../domain/entities/unit'
 import { UnitRepository } from '../../repository/unitRepository'
 import { UseCase, UseCaseReponse } from '../protocol/useCase'
 
+export interface UnitInterface {
+  name: string
+  localization: string
+}
+
 export class NotUnitsFound extends Error {
   constructor() {
     super('Não Encontrada unidades.')
