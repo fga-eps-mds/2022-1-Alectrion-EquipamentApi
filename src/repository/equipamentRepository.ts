@@ -52,4 +52,11 @@ export class EquipmentRepository implements EquipmentRepositoryProtocol {
     })
     return equipment
   }
+
+  async findByTippingNumber(tippingNumber: string): Promise<Equipment | null> {
+    const result = await this.equipmentRepository.findOneBy({
+      tippingNumber
+    })
+    return result
+  }
 }

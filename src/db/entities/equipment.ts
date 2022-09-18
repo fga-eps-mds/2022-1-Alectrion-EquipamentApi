@@ -25,7 +25,8 @@ export class Equipment {
 
   @Column({
     name: 'tipping_number',
-    type: 'varchar'
+    type: 'varchar',
+    unique: true
   })
   tippingNumber: string
 
@@ -59,9 +60,15 @@ export class Equipment {
 
   @Column({
     name: 'initial_use_date',
+    type: 'varchar'
+  })
+  initialUseDate: string
+
+  @Column({
+    name: 'acquisition_date',
     type: 'date'
   })
-  initialUseDate: Date
+  acquisitionDate: Date
 
   @Column({
     type: 'varchar',

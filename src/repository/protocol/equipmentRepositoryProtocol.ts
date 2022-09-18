@@ -6,4 +6,5 @@ export interface EquipmentRepositoryProtocol {
   findOne(equipmentId: string): Promise<Equipment | null>
   genericFind(query: any): Promise<Equipment[]>
   findByTippingNumberOrSerialNumber(id: string): Promise<Equipment | null>
+  findByTippingNumber(tippingNumber: string): Promise<Equipment | null>
 }
