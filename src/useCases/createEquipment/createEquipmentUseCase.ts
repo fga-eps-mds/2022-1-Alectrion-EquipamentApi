@@ -160,20 +160,18 @@ export class CreateEquipmentUseCase
       equipmentData.brandName
     )
 
-    const acquisition = await this.acquisitionRepository.findOneByName(
+    let acquisition = await this.acquisitionRepository.findOneByName(
       equipmentData.acquisitionName
     )
 
     if (!brand) {
       brand = await this.brandRepository.create({
-        name: equipmentData.brandName,
-        id: '',
-        equipment: []
+        name: equipmentData.brandName
       })
     }
 
     if (!acquisition) {
-      brand = await this.acquisitionRepository.create({
+      acquisition = await this.acquisitionRepository.create({
         name: equipmentData.acquisitionName,
         id: '',
         equipment: []
@@ -275,6 +273,7 @@ export class CreateEquipmentUseCase
     equipment.acquisition = acquisition as EquipmentAcquisition
     equipment.unit = unit
     equipment.brand = brand as EquipmentBrand
+
     await this.equipmentRepository.create(equipment)
 
     return {

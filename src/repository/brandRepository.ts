@@ -13,7 +13,7 @@ export class BrandRepository implements BrandRepositoryProtocol {
     return brands
   }
 
-  async create(brandData: EquipmentBrand): Promise<EquipmentBrand> {
+  async create(brandData: { name: string }): Promise<EquipmentBrand> {
     const brand = await this.brandRepository.create({
       name: brandData.name
     })
