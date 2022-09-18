@@ -71,6 +71,8 @@ export class CreateOrderServiceUseCase
       }
     }
 
+    console.log(data)
+
     const equipment = await this.equipmentRepository.listOne(data.equipmentId)
 
     if (equipment === undefined) {
