@@ -20,7 +20,7 @@ export class GetEquipmentController extends Controller {
     if (response.isSuccess && response.data) {
       return ok(response.data)
     } else {
-      return serverError(response.error)
+      return serverError('Erro ao buscar equipamentos')
     }
   }
 }

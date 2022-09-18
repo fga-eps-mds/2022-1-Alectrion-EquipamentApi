@@ -4,6 +4,8 @@ import { EquipmentRepositoryProtocol } from '../../repository/protocol/equipment
 import { UseCase, UseCaseReponse } from '../protocol/useCase'
 
 export interface GetEquipmentInput {
+  userId?: string
+
   id?: string
 
   tippingNumber?: string
