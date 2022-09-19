@@ -1,27 +1,27 @@
-import { mock, MockProxy } from 'jest-mock-extended'
-import { Status } from '../../domain/entities/equipamentEnum/status'
-import { Type } from '../../domain/entities/equipamentEnum/type'
-import { Equipment } from '../../domain/entities/equipment'
-import { History } from '../../domain/entities/history'
-import { OrderService } from '../../domain/entities/order-service'
-import { ListOneEquipmentRepository } from '../../repository/equipment/list-one-equipment'
-import { UpdateEquipmentRepository } from '../../repository/equipment/update-equipment'
-import { CreateHistoryRepository } from '../../repository/history/create-history-repository'
-import { CreateOrderServiceRepository } from '../../repository/order-service/create-order-service'
-import { ListOneUnitRepository } from '../../repository/unit/list-one-unit'
+import { MockProxy, mock } from 'jest-mock-extended'
+import { Status } from '../src/domain/entities/equipamentEnum/status'
+import { Type } from '../src/domain/entities/equipamentEnum/type'
+import { Equipment } from '../src/domain/entities/equipment'
+import { History } from '../src/domain/entities/history'
+import { OrderService } from '../src/domain/entities/order-service'
+import { ListOneEquipmentRepository } from '../src/repository/equipment/list-one-equipment'
+import { UpdateEquipmentRepository } from '../src/repository/equipment/update-equipment'
+import { CreateHistoryRepository } from '../src/repository/history/create-history-repository'
+import { CreateOrderServiceRepository } from '../src/repository/order-service/create-order-service'
+import { ListOneUnitRepository } from '../src/repository/unit/list-one-unit'
 import {
   CreateOrderServiceUseCase,
   CreateOrderServiceUseCaseData
-} from './create-order-service'
+} from '../src/useCases/create-order-service/create-order-service'
 import {
-  CreateOrderServiceError,
   EquipmentNotFoundError,
+  UnitNotFoundError,
+  CreateOrderServiceError,
   InvalidAuthorError,
-  InvalidDateError,
-  InvalidSenderError,
   InvalidUnitError,
-  UnitNotFoundError
-} from './errors'
+  InvalidDateError,
+  InvalidSenderError
+} from '../src/useCases/create-order-service/errors'
 
 describe('Test create order use case', () => {
   let equipmentRepository: MockProxy<ListOneEquipmentRepository>

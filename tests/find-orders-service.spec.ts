@@ -1,15 +1,14 @@
 import { mock } from 'jest-mock-extended'
-import { Equipment } from '../../domain/entities/equipment'
-
-import { Status } from '../../domain/entities/equipamentEnum/status'
-import { Type } from '../../domain/entities/equipamentEnum/type'
-import { FindOrderServiceController } from './find-orders-service'
+import { Status } from '../src/domain/entities/equipamentEnum/status'
+import { Type } from '../src/domain/entities/equipamentEnum/type'
+import { Equipment } from '../src/domain/entities/equipment'
+import { OrderService } from '../src/domain/entities/order-service'
+import { FindOrderServiceController } from '../src/presentation/controller/find-orders-service'
+import { ok, serverError } from '../src/presentation/helpers'
 import {
   FindOrderService,
   FindOrderServiceUseCaseData
-} from '../../useCases/find-order-service/find-order-service'
-import { OrderService } from '../../domain/entities/order-service'
-import { ok, serverError } from '../helpers'
+} from '../src/useCases/find-order-service/find-order-service'
 
 const useCaseMocked = mock<FindOrderService>()
 const findOrderServiceController = new FindOrderServiceController(useCaseMocked)

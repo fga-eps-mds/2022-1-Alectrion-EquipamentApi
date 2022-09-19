@@ -1,23 +1,27 @@
-import { badRequest, notFound, serverError } from './../helpers/http'
 import { mock } from 'jest-mock-extended'
-import { ok } from '../helpers'
+import { Status } from '../src/domain/entities/equipamentEnum/status'
+import { Type } from '../src/domain/entities/equipamentEnum/type'
+import { Equipment } from '../src/domain/entities/equipment'
+import { OrderService } from '../src/domain/entities/order-service'
 import {
   CreateOrderServiceController,
   CreateOrderServiceHttpRequest
-} from './create-order-service-controller'
-import { CreateOrderServiceUseCase } from '../../useCases/create-order-service/create-order-service'
-import { Status } from '../../domain/entities/equipamentEnum/status'
-import { Type } from '../../domain/entities/equipamentEnum/type'
-import { Equipment } from '../../domain/entities/equipment'
-import { OrderService } from '../../domain/entities/order-service'
+} from '../src/presentation/controller/create-order-service-controller'
+import {
+  ok,
+  notFound,
+  badRequest,
+  serverError
+} from '../src/presentation/helpers'
+import { CreateOrderServiceUseCase } from '../src/useCases/create-order-service/create-order-service'
 import {
   EquipmentNotFoundError,
   InvalidAuthorError,
-  InvalidDateError,
-  InvalidSenderError,
   InvalidUnitError,
-  UnitNotFoundError
-} from '../../useCases/create-order-service/errors'
+  InvalidSenderError,
+  UnitNotFoundError,
+  InvalidDateError
+} from '../src/useCases/create-order-service/errors'
 
 const createOrderServiceUseCaseMocked = mock<CreateOrderServiceUseCase>()
 const createOrderServiceController = new CreateOrderServiceController(

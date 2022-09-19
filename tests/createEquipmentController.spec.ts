@@ -1,20 +1,24 @@
 import { mock } from 'jest-mock-extended'
-import { badRequest, notFound, ok, serverError } from '../helpers'
+import { Status } from '../src/domain/entities/equipamentEnum/status'
+import { Type } from '../src/domain/entities/equipamentEnum/type'
+import { Equipment } from '../src/domain/entities/equipment'
 import {
   CreateEquipmentController,
   CreateEquipmentHttpRequest
-} from './createEquipmentController'
+} from '../src/presentation/controller/createEquipmentController'
+import {
+  ok,
+  badRequest,
+  notFound,
+  serverError
+} from '../src/presentation/helpers'
 import {
   CreateEquipmentUseCase,
-  EquipmentTypeError,
+  NullFields,
   InvalidTippingNumber,
   NotFoundUnit,
-  NullFields
-} from '../../useCases/createEquipment/createEquipmentUseCase'
-import { Equipment } from '../../domain/entities/equipment'
-
-import { Status } from '../../domain/entities/equipamentEnum/status'
-import { Type } from '../../domain/entities/equipamentEnum/type'
+  EquipmentTypeError
+} from '../src/useCases/createEquipment/createEquipmentUseCase'
 
 const useCaseMocked = mock<CreateEquipmentUseCase>()
 const createEquipmentController = new CreateEquipmentController(useCaseMocked)

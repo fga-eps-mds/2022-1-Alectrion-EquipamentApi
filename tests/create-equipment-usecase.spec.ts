@@ -1,22 +1,22 @@
-import { Type } from './../../domain/entities/equipamentEnum/type'
-import { mock, MockProxy } from 'jest-mock-extended'
-import { Status } from '../../domain/entities/equipamentEnum/status'
-import { Equipment } from '../../domain/entities/equipment'
-import AcquisitionRepositoryProtocol from '../../repository/protocol/acquisitionRepositoryProtocol'
-import { BrandRepositoryProtocol } from '../../repository/protocol/brandRepositoryProtocol'
-import { EquipmentRepositoryProtocol } from '../../repository/protocol/equipmentRepositoryProtocol'
-import { UnitRepositoryProcol } from '../../repository/protocol/unitRepositoryProtocol'
+import { MockProxy, mock } from 'jest-mock-extended'
+import { Status } from '../src/domain/entities/equipamentEnum/status'
+import { StorageType } from '../src/domain/entities/equipamentEnum/storageType'
+import { Type } from '../src/domain/entities/equipamentEnum/type'
+import { Equipment } from '../src/domain/entities/equipment'
+import { Unit } from '../src/domain/entities/unit'
+import AcquisitionRepositoryProtocol from '../src/repository/protocol/acquisitionRepositoryProtocol'
+import { BrandRepositoryProtocol } from '../src/repository/protocol/brandRepositoryProtocol'
+import { EquipmentRepositoryProtocol } from '../src/repository/protocol/equipmentRepositoryProtocol'
+import { UnitRepositoryProcol } from '../src/repository/protocol/unitRepositoryProtocol'
 import {
-  CreateEquipmentInterface,
   CreateEquipmentUseCase,
-  EquipmentTypeError,
-  InvalidTippingNumber,
+  CreateEquipmentInterface,
   NotFoundUnit,
-  NullFields
-} from './createEquipmentUseCase'
-import { StorageType } from '../../domain/entities/equipamentEnum/storageType'
-import { Unit } from '../../domain/entities/unit'
-import { Equipment as EquipmentDb } from '../../db/entities/equipment'
+  InvalidTippingNumber,
+  NullFields,
+  EquipmentTypeError
+} from '../src/useCases/createEquipment/createEquipmentUseCase'
+import { Equipment as EquipmentDb } from '../src/db/entities/equipment'
 
 describe('Test create order use case', () => {
   let equipmentRepository: MockProxy<EquipmentRepositoryProtocol>
