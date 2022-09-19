@@ -14,5 +14,5 @@ export class EquipmentBrand {
   name: string
 
   @OneToMany(() => Equipment, (equipment) => equipment.brand)
-  equipment: Equipment[]
+  equipment?: Equipment[]
 }

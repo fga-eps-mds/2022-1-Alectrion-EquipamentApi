@@ -1,4 +1,3 @@
-import { Equipment } from '../../db/entities/equipment'
 import { EquipmentAcquisition } from '../../db/entities/equipment-acquisition'
 import { EquipmentBrand } from '../../db/entities/equipment-brand'
 
@@ -6,11 +5,13 @@ import { ScreenType } from '../../domain/entities/equipamentEnum/screenType'
 import { Status } from '../../domain/entities/equipamentEnum/status'
 import { StorageType } from '../../domain/entities/equipamentEnum/storageType'
 import { Type } from '../../domain/entities/equipamentEnum/type'
+import { Equipment } from '../../domain/entities/equipment'
 import AcquisitionRepositoryProtocol from '../../repository/protocol/acquisitionRepositoryProtocol'
 import { BrandRepositoryProtocol } from '../../repository/protocol/brandRepositoryProtocol'
 import { EquipmentRepositoryProtocol } from '../../repository/protocol/equipmentRepositoryProtocol'
 import { UnitRepositoryProcol } from '../../repository/protocol/unitRepositoryProtocol'
 import { UseCase, UseCaseReponse } from '../protocol/useCase'
+import { Equipment as EquipmentEntity } from '../../db/entities/equipment'
 
 export interface CreateEquipmentInterface {
   tippingNumber: string
@@ -147,7 +148,7 @@ export class CreateEquipmentUseCase
   async execute(
     equipmentData: CreateEquipmentInterface
   ): Promise<UseCaseReponse<Equipment>> {
-    const equipment = new Equipment()
+    const equipment = new EquipmentEntity()
     if (!this.validFixedFields(equipmentData)) {
       return {
         isSuccess: false,
@@ -187,6 +188,7 @@ export class CreateEquipmentUseCase
     const tippingNumber = await this.equipmentRepository.findByTippingNumber(
       equipmentData.tippingNumber
     )
+
     if (tippingNumber) {
       return {
         isSuccess: false,

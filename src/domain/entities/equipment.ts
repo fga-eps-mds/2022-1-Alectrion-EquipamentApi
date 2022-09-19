@@ -41,21 +41,21 @@ export type Equipment = {
 
   storageAmount?: string
 
+  history?: History
+
+  ram_size?: string
+
   createdAt: Date
 
   updatedAt: Date
 
   orderServices?: OrderService[]
 
-  dismissed?: Dismissed[]
+  dismisseds?: Dismissed[]
 
   brand?: EquipmentBrand
 
   acquisition?: EquipmentBrand
-
-  ram_size?: string
-
-  history?: History
 
   unit?: Unit
 }

@@ -11,7 +11,7 @@ export type OrderService = {
 
   authorId: string
 
-  receiverName?: string
+  receiverName: string
 
   sender: string
 

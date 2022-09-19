@@ -10,7 +10,7 @@ import {
 import { notFound, ok, badRequest, serverError } from '../helpers'
 import { Controller } from '../protocols/controller'
 
-type HttpRequest = {
+export type CreateOrderServiceHttpRequest = {
   equipmentId: string
   userId: string
   receiverName: string
@@ -27,7 +27,7 @@ export class CreateOrderServiceController extends Controller {
     super()
   }
 
-  async perform(params: HttpRequest) {
+  async perform(params: CreateOrderServiceHttpRequest) {
     const response = await this.createOrderServiceUseCase.execute({
       equipmentId: params.equipmentId,
       authorId: params.userId,
@@ -60,7 +60,7 @@ export class CreateOrderServiceController extends Controller {
     }
 
     if (!response.isSuccess && response.error instanceof UnitNotFoundError) {
-      return badRequest(response.error)
+      return notFound(response.error)
     }
 
     if (!response.isSuccess && response.error instanceof InvalidDateError) {

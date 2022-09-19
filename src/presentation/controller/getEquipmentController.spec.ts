@@ -3,8 +3,7 @@ import { Equipment } from '../../db/entities/equipment'
 import { GetEquipmentUseCase } from '../../useCases/getEquipment/getEquipmentUseCase'
 import { GetEquipmentController } from './getEquipmentController'
 import { datatype } from 'faker'
-import { notFound, ok, serverError } from '../helpers'
-import { ServerError } from '../errors'
+import { ok, serverError } from '../helpers'
 
 const useCaseMocked = mock<GetEquipmentUseCase>()
 const getEquipmentController = new GetEquipmentController(useCaseMocked)

@@ -1,4 +1,4 @@
-import { EquipmentAcquisition } from '../../db/entities/equipment-acquisition'
+import { EquipmentAcquisition } from '../../domain/entities/equipment-acquisition'
 
 export interface AcquisitionRepositoryProtocol {
   create(acqusition: EquipmentAcquisition): Promise<EquipmentAcquisition | null>

@@ -5,5 +5,5 @@ export class EquipmentAcquisition {
 
   name: string
 
-  equipment: Equipment[]
+  equipment?: Equipment[]
 }

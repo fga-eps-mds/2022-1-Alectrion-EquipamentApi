@@ -25,10 +25,10 @@ export class History {
   equipmentSnapshot: any
 
   @OneToMany(() => OrderService, (orderService) => orderService.equipment)
-  orderServices: OrderService[]
+  orderServices?: OrderService[]
 
   @OneToMany(() => Dismissed, (dismissed) => dismissed.equipment)
-  dismisseds: Dismissed[]
+  dismisseds?: Dismissed[]
 
   @OneToOne(() => Equipment)
   @JoinColumn()

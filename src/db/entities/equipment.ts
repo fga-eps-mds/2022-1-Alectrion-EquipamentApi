@@ -56,7 +56,7 @@ export class Equipment {
   @Column({
     type: 'varchar'
   })
-  description: string
+  description?: string
 
   @Column({
     name: 'initial_use_date',
@@ -75,7 +75,7 @@ export class Equipment {
     name: 'screen_size',
     nullable: true
   })
-  screenSize: string
+  screenSize?: string
 
   @Column({
     name: 'invoice_number',
@@ -87,7 +87,7 @@ export class Equipment {
     type: 'varchar',
     nullable: true
   })
-  power: string
+  power?: string
 
   @Column({
     type: 'enum',
@@ -95,13 +95,13 @@ export class Equipment {
     name: 'screen_type',
     nullable: true
   })
-  screenType: ScreenType
+  screenType?: ScreenType
 
   @Column({
     type: 'varchar',
     nullable: true
   })
-  processor: string
+  processor?: string
 
   @Column({
     type: 'enum',
@@ -109,21 +109,21 @@ export class Equipment {
     name: 'storage_type',
     nullable: true
   })
-  storageType: StorageType
+  storageType?: StorageType
 
   @Column({
     name: 'storage_amount',
     type: 'varchar',
     nullable: true
   })
-  storageAmount: string
+  storageAmount?: string
 
   @Column({
     name: 'ram_size',
     type: 'varchar',
     nullable: true
   })
-  ram_size: string
+  ram_size?: string
 
   @Column({ type: 'timestamptz' })
   @CreateDateColumn()
@@ -134,20 +134,20 @@ export class Equipment {
   updatedAt: Date
 
   @OneToMany(() => OrderService, (orderService) => orderService.equipment)
-  orderServices: OrderService[]
+  orderServices?: OrderService[]
 
   @OneToMany(() => Dismissed, (dismissed) => dismissed.equipment)
-  dismisseds: Dismissed[]
+  dismisseds?: Dismissed[]
 
   @ManyToOne(() => EquipmentBrand, (equipmentBrand) => equipmentBrand.equipment)
-  brand: EquipmentBrand
+  brand?: EquipmentBrand
 
   @ManyToOne(
     () => EquipmentAcquisition,
     (equipmentAcquisition) => equipmentAcquisition.equipment
   )
-  acquisition: EquipmentBrand
+  acquisition?: EquipmentBrand
 
   @ManyToOne(() => Unit, (unit) => unit.equipments)
-  unit: Unit
+  unit?: Unit
 }

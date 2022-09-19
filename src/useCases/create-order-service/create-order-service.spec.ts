@@ -2,6 +2,7 @@ import { mock, MockProxy } from 'jest-mock-extended'
 import { Status } from '../../domain/entities/equipamentEnum/status'
 import { Type } from '../../domain/entities/equipamentEnum/type'
 import { Equipment } from '../../domain/entities/equipment'
+import { History } from '../../domain/entities/history'
 import { OrderService } from '../../domain/entities/order-service'
 import { ListOneEquipmentRepository } from '../../repository/equipment/list-one-equipment'
 import { UpdateEquipmentRepository } from '../../repository/equipment/update-equipment'
@@ -70,10 +71,12 @@ describe('Test create order use case', () => {
       updatedAt: new Date(),
       localization: 'any_localization'
     },
+    receiverName: '',
     equipmentSnapshot: equipment,
     sender: 'any_sender',
     senderFunctionalNumber: 'any_sender_number',
     history: {
+      equipmentSnapshot: {},
       equipment,
       createdAt: new Date(),
       id: 'any_id',
@@ -150,7 +153,8 @@ describe('Test create order use case', () => {
       createdAt: new Date(),
       updatedAt: new Date(),
       equipment,
-      id: 'any_id'
+      id: 'any_id',
+      equipmentSnapshot: {}
     }
     equipmentRepository.listOne.mockResolvedValueOnce({
       ...equipment,
@@ -164,11 +168,12 @@ describe('Test create order use case', () => {
   })
 
   test('should update history if equipment found already has history', async () => {
-    const history = {
+    const history: History = {
       createdAt: new Date(),
       updatedAt: new Date(),
       equipment,
-      id: 'any_id'
+      id: 'any_id',
+      equipmentSnapshot: {}
     }
     equipmentRepository.listOne.mockResolvedValueOnce({
       ...equipment,
@@ -211,8 +216,6 @@ describe('Test create order use case', () => {
     historyRepository.create.mockResolvedValueOnce(null)
 
     const result = await createOrderServiceUseCase.execute(data)
-
-    console.log(createOrderServiceUseCase.history)
 
     expect(result).toEqual({
       isSuccess: false,
