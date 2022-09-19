@@ -1,10 +1,9 @@
 import { mock } from 'jest-mock-extended'
-import { Equipment } from '../../db/entities/equipment'
-import { GetEquipmentUseCase } from '../../useCases/getEquipment/getEquipmentUseCase'
-import { GetEquipmentController } from './getEquipmentController'
+import { Equipment } from '../src/db/entities/equipment'
+import { GetEquipmentUseCase } from '../src/useCases/getEquipment/getEquipmentUseCase'
+import { GetEquipmentController } from '../src/presentation/controller/getEquipmentController'
 import { datatype } from 'faker'
-import { notFound, ok, serverError } from '../helpers'
-import { ServerError } from '../errors'
+import { ok, serverError } from '../src/presentation/helpers'
 
 const useCaseMocked = mock<GetEquipmentUseCase>()
 const getEquipmentController = new GetEquipmentController(useCaseMocked)

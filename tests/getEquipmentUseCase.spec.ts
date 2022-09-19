@@ -1,7 +1,7 @@
-import { GetEquipmentUseCase } from './getEquipmentUseCase'
+import { GetEquipmentUseCase } from '../src/useCases/getEquipment/getEquipmentUseCase'
 import { mock } from 'jest-mock-extended'
-import { EquipmentRepositoryProtocol } from '../../repository/protocol/equipmentRepositoryProtocol'
-import { Equipment } from '../../db/entities/equipment'
+import { EquipmentRepositoryProtocol } from '../src/repository/protocol/equipmentRepositoryProtocol'
+import { Equipment } from '../src/db/entities/equipment'
 import { datatype } from 'faker'
 
 const equipmentRepository = mock<EquipmentRepositoryProtocol>()
