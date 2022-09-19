@@ -10,7 +10,7 @@ module.exports = {
   ],
   coverageDirectory: 'coverage',
   coverageProvider: 'babel',
-  roots: ['<rootDir>/src'],
+  roots: ['<rootDir>/tests'],
   transform: {
     '\\.ts$': 'ts-jest'
   },
