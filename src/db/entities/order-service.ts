@@ -27,7 +27,7 @@ export class OrderService {
     type: 'varchar',
     nullable: true
   })
-  description: string
+  description?: string
 
   @Column({
     type: 'uuid',
@@ -37,10 +37,9 @@ export class OrderService {
 
   @Column({
     type: 'varchar',
-    name: 'receiver_name',
-    nullable: true
+    name: 'receiver_name'
   })
-  receiverName?: string
+  receiverName: string
 
   @Column({
     type: 'varchar',

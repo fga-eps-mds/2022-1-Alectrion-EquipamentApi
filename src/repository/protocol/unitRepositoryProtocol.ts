@@ -1,4 +1,4 @@
-import { Unit } from '../../db/entities/unit'
+import { Unit } from '../../domain/entities/unit'
 
 export interface UnitRepositoryProcol {
   create(unit: Unit): Promise<Unit | undefined>

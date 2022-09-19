@@ -7,11 +7,11 @@ export type OrderService = {
 
   date: Date
 
-  description: string
+  description?: string
 
   authorId: string
 
-  receiverName?: string
+  receiverName: string
 
   sender: string
 

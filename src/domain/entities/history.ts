@@ -5,11 +5,13 @@ import { OrderService } from './order-service'
 export type History = {
   id: string
 
-  equipment: Equipment
+  equipmentSnapshot: any
 
-  orderService?: OrderService[]
+  orderServices?: OrderService[]
 
   dismisseds?: Dismissed[]
+
+  equipment: Equipment
 
   createdAt: Date
 

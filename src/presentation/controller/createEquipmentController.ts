@@ -1,4 +1,4 @@
-import { Equipment } from '../../db/entities/equipment'
+import { Equipment } from '../../domain/entities/equipment'
 import {
   CreateEquipmentUseCase,
   EquipmentTypeError,
@@ -6,10 +6,10 @@ import {
   NotFoundUnit,
   NullFields
 } from '../../useCases/createEquipment/createEquipmentUseCase'
-import { badRequest, HttpResponse, ok, serverError } from '../helpers'
+import { badRequest, HttpResponse, ok, serverError, notFound } from '../helpers'
 import { Controller } from '../protocols/controller'
 
-type HttpRequest = {
+export type CreateEquipmentHttpRequest = {
   tippingNumber: string
 
   serialNumber: string
@@ -56,7 +56,9 @@ export class CreateEquipmentController extends Controller {
     super()
   }
 
-  async perform(params: HttpRequest): Promise<HttpResponse<Model>> {
+  async perform(
+    params: CreateEquipmentHttpRequest
+  ): Promise<HttpResponse<Model>> {
     const response = await this.createEquipment.execute(params)
     if (response.data && response.isSuccess) {
       return ok(response.data)
@@ -65,11 +67,10 @@ export class CreateEquipmentController extends Controller {
     } else if (response.error instanceof InvalidTippingNumber) {
       return badRequest(new InvalidTippingNumber())
     } else if (response.error instanceof NotFoundUnit) {
-      return badRequest(new NotFoundUnit())
+      return notFound(new NotFoundUnit())
     } else if (response.error instanceof EquipmentTypeError) {
-      return badRequest(new EquipmentTypeError())
+      return notFound(new EquipmentTypeError())
     } else {
-      console.log('erro no controller')
       return serverError(response.error)
     }
   }

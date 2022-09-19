@@ -1,4 +1,4 @@
-import { Unit } from '../../db/entities/unit'
+import { Unit } from '../../domain/entities/unit'
 
 export interface ListOneUnitRepository {
   listOne(unitId: string): Promise<Unit | undefined>

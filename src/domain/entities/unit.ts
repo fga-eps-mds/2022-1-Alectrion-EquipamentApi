@@ -1,3 +1,4 @@
+import { Equipment } from './equipment'
 import { OrderService } from './order-service'
 
 export type Unit = {
@@ -11,5 +12,7 @@ export type Unit = {
 
   updatedAt: Date
 
-  orderServices: OrderService[]
+  orderServices?: OrderService[]
+
+  equipments?: Equipment[]
 }
