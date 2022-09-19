@@ -1,5 +1,9 @@
 /node_modules
 /coverage
+/report
+/data
+yarn.lock
 .env
-.db.env
+db.env
 data
+.vscode
