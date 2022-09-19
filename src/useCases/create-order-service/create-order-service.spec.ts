@@ -1,0 +1,270 @@
+import { mock, MockProxy } from 'jest-mock-extended'
+import { Status } from '../../domain/entities/equipamentEnum/status'
+import { Type } from '../../domain/entities/equipamentEnum/type'
+import { Equipment } from '../../domain/entities/equipment'
+import { OrderService } from '../../domain/entities/order-service'
+import { ListOneEquipmentRepository } from '../../repository/equipment/list-one-equipment'
+import { UpdateEquipmentRepository } from '../../repository/equipment/update-equipment'
+import { CreateHistoryRepository } from '../../repository/history/create-history-repository'
+import { CreateOrderServiceRepository } from '../../repository/order-service/create-order-service'
+import { ListOneUnitRepository } from '../../repository/unit/list-one-unit'
+import {
+  CreateOrderServiceUseCase,
+  CreateOrderServiceUseCaseData
+} from './create-order-service'
+import {
+  CreateOrderServiceError,
+  EquipmentNotFoundError,
+  InvalidAuthorError,
+  InvalidDateError,
+  InvalidSenderError,
+  InvalidUnitError,
+  UnitNotFoundError
+} from './errors'
+
+describe('Test create order use case', () => {
+  let equipmentRepository: MockProxy<ListOneEquipmentRepository>
+  let updateEquipmentRepository: MockProxy<UpdateEquipmentRepository>
+  let unitRepository: MockProxy<ListOneUnitRepository>
+  let historyRepository: MockProxy<CreateHistoryRepository>
+  let createOrderServiceRepository: MockProxy<CreateOrderServiceRepository>
+  let createOrderServiceUseCase: CreateOrderServiceUseCase
+
+  const equipment: Equipment = {
+    id: 'id',
+    acquisitionDate: new Date(),
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    status: Status.ACTIVE,
+    tippingNumber: 'any',
+    model: 'DELL G15',
+    serialNumber: 'any',
+    type: Type.CPU,
+    initialUseDate: new Date().toISOString(),
+    invoiceNumber: 'any'
+  }
+
+  const data: CreateOrderServiceUseCaseData = {
+    authorFunctionalNumber: 'author_name',
+    authorId: 'author_id',
+    date: new Date().toISOString(),
+    description: 'any_description',
+    destination: 'destination_id',
+    equipmentId: 'equipment_id',
+    receiverName: 'any_receiver',
+    senderFunctionalNumber: 'functional_number',
+    senderName: 'any_sender'
+  }
+
+  const orderService: OrderService = {
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    date: new Date(),
+    id: 'any_id',
+    equipment,
+    authorId: 'any_author',
+    destination: {
+      createdAt: new Date(),
+      id: 'any_id',
+      name: 'any_name',
+      updatedAt: new Date(),
+      localization: 'any_localization'
+    },
+    equipmentSnapshot: equipment,
+    sender: 'any_sender',
+    senderFunctionalNumber: 'any_sender_number',
+    history: {
+      equipment,
+      createdAt: new Date(),
+      id: 'any_id',
+      updatedAt: new Date()
+    }
+  }
+
+  beforeEach(() => {
+    equipmentRepository = mock()
+    updateEquipmentRepository = mock()
+    unitRepository = mock()
+    historyRepository = mock()
+    createOrderServiceRepository = mock()
+    createOrderServiceUseCase = new CreateOrderServiceUseCase(
+      equipmentRepository,
+      updateEquipmentRepository,
+      unitRepository,
+      historyRepository,
+      createOrderServiceRepository
+    )
+
+    equipmentRepository.listOne.mockResolvedValue(equipment)
+    unitRepository.listOne.mockResolvedValue({
+      createdAt: new Date(),
+      id: 'any_id',
+      name: 'any_name',
+      updatedAt: new Date(),
+      localization: 'any_localization'
+    })
+    createOrderServiceRepository.create.mockResolvedValue(orderService)
+  })
+  test('should call equipment repository with correct params', async () => {
+    await createOrderServiceUseCase.execute(data)
+
+    expect(equipmentRepository.listOne).toBeCalledWith(data.equipmentId)
+  })
+
+  test('should return EquipmentNotFoundError if no equipment was found', async () => {
+    equipmentRepository.listOne.mockResolvedValueOnce(undefined)
+
+    const result = await createOrderServiceUseCase.execute(data)
+
+    expect(equipmentRepository.listOne).toBeCalledWith(data.equipmentId)
+    expect(result).toEqual({
+      isSuccess: false,
+      error: new EquipmentNotFoundError()
+    })
+  })
+
+  test('should return UnitNotFoundError if no unit was found', async () => {
+    unitRepository.listOne.mockResolvedValueOnce(undefined)
+
+    const result = await createOrderServiceUseCase.execute(data)
+
+    expect(unitRepository.listOne).toBeCalledWith(data.destination)
+    expect(result).toEqual({
+      isSuccess: false,
+      error: new UnitNotFoundError()
+    })
+  })
+
+  test('should create equipment history if equipment found doesnt have history', async () => {
+    await createOrderServiceUseCase.execute(data)
+
+    expect(historyRepository.create).toBeCalledTimes(1)
+    expect(historyRepository.create).toBeCalledWith({
+      equipment,
+      equipmentSnapshot: equipment
+    })
+  })
+
+  test('should update history if equipment found already has history', async () => {
+    const history = {
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      equipment,
+      id: 'any_id'
+    }
+    equipmentRepository.listOne.mockResolvedValueOnce({
+      ...equipment,
+      history
+    })
+
+    await createOrderServiceUseCase.execute(data)
+
+    expect(historyRepository.create).toBeCalledTimes(0)
+    expect(createOrderServiceUseCase.history).toEqual(history)
+  })
+
+  test('should update history if equipment found already has history', async () => {
+    const history = {
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      equipment,
+      id: 'any_id'
+    }
+    equipmentRepository.listOne.mockResolvedValueOnce({
+      ...equipment,
+      history
+    })
+
+    await createOrderServiceUseCase.execute(data)
+
+    expect(historyRepository.create).toBeCalledTimes(0)
+    expect(createOrderServiceUseCase.history).toEqual(history)
+  })
+
+  test('should create order service', async () => {
+    const result = await createOrderServiceUseCase.execute(data)
+
+    expect(result).toEqual({
+      isSuccess: true,
+      data: orderService
+    })
+  })
+
+  test('should call updateEquipmentRepository if order service was created', async () => {
+    const result = await createOrderServiceUseCase.execute(data)
+
+    expect(updateEquipmentRepository.updateEquipment).toBeCalledTimes(1)
+    expect(updateEquipmentRepository.updateEquipment).toBeCalledWith(
+      equipment.id,
+      {
+        status: Status.MAINTENANCE
+      }
+    )
+
+    expect(result).toEqual({
+      isSuccess: true,
+      data: orderService
+    })
+  })
+
+  test('should return CreateOrderServiceError if history returns undefined', async () => {
+    historyRepository.create.mockResolvedValueOnce(null)
+
+    const result = await createOrderServiceUseCase.execute(data)
+
+    console.log(createOrderServiceUseCase.history)
+
+    expect(result).toEqual({
+      isSuccess: false,
+      error: new CreateOrderServiceError()
+    })
+  })
+
+  test('should return InvalidAuthorError if receiverName equals undefined', async () => {
+    const result = await createOrderServiceUseCase.execute({
+      ...data,
+      receiverName: undefined
+    })
+
+    expect(result).toEqual({
+      isSuccess: false,
+      error: new InvalidAuthorError()
+    })
+  })
+
+  test('should return InvalidUnitError if destination was undefined', async () => {
+    const result = await createOrderServiceUseCase.execute({
+      ...data,
+      destination: undefined
+    })
+
+    expect(result).toEqual({
+      isSuccess: false,
+      error: new InvalidUnitError()
+    })
+  })
+
+  test('should return InvalidDateError if date was undefined', async () => {
+    const result = await createOrderServiceUseCase.execute({
+      ...data,
+      date: undefined
+    })
+
+    expect(result).toEqual({
+      isSuccess: false,
+      error: new InvalidDateError()
+    })
+  })
+
+  test('should return InvalidSenderError if senderName was undefined', async () => {
+    const result = await createOrderServiceUseCase.execute({
+      ...data,
+      senderName: undefined
+    })
+
+    expect(result).toEqual({
+      isSuccess: false,
+      error: new InvalidSenderError()
+    })
+  })
+})

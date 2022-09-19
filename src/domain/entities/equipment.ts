@@ -21,7 +21,7 @@ export type Equipment = {
 
   model: string
 
-  description: string
+  description?: string
 
   initialUseDate: string
 
@@ -45,17 +45,17 @@ export type Equipment = {
 
   updatedAt: Date
 
-  orderServices: OrderService[]
+  orderServices?: OrderService[]
 
-  dismisseds: Dismissed[]
+  dismissed?: Dismissed[]
 
-  brand: EquipmentBrand
+  brand?: EquipmentBrand
 
-  acquisition: EquipmentBrand
+  acquisition?: EquipmentBrand
 
   ram_size?: string
 
   history?: History
 
-  unit: Unit
+  unit?: Unit
 }

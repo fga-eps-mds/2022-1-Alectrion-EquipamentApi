@@ -17,7 +17,7 @@ import {
   InvalidDateError
 } from './errors'
 
-type CreateOrderServiceUseCaseData = {
+export type CreateOrderServiceUseCaseData = {
   equipmentId: string
   description: string
   authorId: string
@@ -32,7 +32,7 @@ type CreateOrderServiceUseCaseData = {
 export class CreateOrderServiceUseCase
   implements UseCase<CreateOrderServiceUseCaseData, OrderService>
 {
-  private history: null | History = null
+  public history: null | History = null
 
   constructor(
     private readonly equipmentRepository: ListOneEquipmentRepository,
@@ -70,8 +70,6 @@ export class CreateOrderServiceUseCase
         error: new InvalidSenderError()
       }
     }
-
-    console.log(data)
 
     const equipment = await this.equipmentRepository.listOne(data.equipmentId)
 
