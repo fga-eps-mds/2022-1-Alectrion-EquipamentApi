@@ -16,11 +16,18 @@ Aplicação disponível em: [link da aplicação](https://alectrion-front.heroku
 ## Instalação
 
 1. Clone o projeto 
-> git clone https://github.com/fga-eps-mds/2022-1-Alectrion-EquipamentApi
+    
+    > git clone https://github.com/fga-eps-mds/2022-1-Alectrion-EquipamentApi
+
 2. Entre na pasta do projeto
-> cd 2022-1-Alectrion-EquipamentApi
-5. execute o projeto
-> docker-compose up
+    
+    > cd 2022-1-Alectrion-EquipamentApi
+
+3. Crie o arquivo .env e db.env utilizando como base os arquivo de exemplo(.env.example e o db.env.example).
+
+4. Execute o projeto
+    
+    > docker-compose up
 
 A aplicação sera iniciada na porta 4002
 
