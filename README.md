@@ -31,6 +31,8 @@ Aplicação disponível em: [link da aplicação](https://alectrion-front.heroku
 
 A aplicação sera iniciada na porta 4002
 
+OBS: Caso for necessario a conexão uma conexão que utilize o SSL, descomentar a linha 9: ssl: { rejectUnauthorized: false }, do arquivo src/db/config.ts
+
 ## Contribuir
 Para contribuir com esse projeto é importante seguir nosso [Guia de Contribuição](docs\documentation\Documentos\guia-contribuicao.md) do repositório e seguir nossa [Política de Branches](docs\documentation\Documentos\politicas-branch.md).
 
