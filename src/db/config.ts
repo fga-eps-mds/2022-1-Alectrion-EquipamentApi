@@ -4,7 +4,7 @@ import { DataSource } from 'typeorm'
 export const dataSource = new DataSource({
   type: 'postgres',
   url: process.env.DB_URL,
-  synchronize: true,
+  // synchronize: true,
   // migrationsRun: true,
   // ssl: { rejectUnauthorized: false },
   entities: [__dirname + '/entities/*{.ts, .js}'],
